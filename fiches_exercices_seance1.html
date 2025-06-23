@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche d'Exercices - Séance 1 - Formation Bash Scripting TSSR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2563eb;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .session-info {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .session-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .session-info p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .exercise {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .exercise-header {
+            background: #2563eb;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: -25px -25px 20px -25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exercise-number {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .exercise-title {
+            font-size: 1.1em;
+        }
+
+        .objective {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .objective h4 {
+            color: #047857;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .objective p {
+            color: #065f46;
+            font-size: 0.95em;
+        }
+
+        .content {
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        .content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .code-inline {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #1e40af;
+        }
+
+        .files-needed {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .files-needed h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .files-needed p {
+            color: #78350f;
+            font-size: 0.95em;
+        }
+
+        .bonus {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bonus h4 {
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .bonus p {
+            color: #075985;
+            font-size: 0.95em;
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: none;
+                padding: 20px;
+            }
+            
+            .print-button {
+                display: none;
+            }
+            
+            .exercise {
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+            }
+            
+            .session-info {
+                page-break-after: avoid;
+            }
+        }
+
+        @page {
+            margin: 2cm;
+            @bottom-center {
+                content: "Formation Bash Scripting TSSR - Séance 1 - Page " counter(page);
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Imprimer PDF</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Fiche d'Exercices</h1>
+            <div class="subtitle">Formation Bash Scripting - TSSR (35h)</div>
+        </div>
+
+        <div class="session-info">
+            <h2>Séance 1 - Fondamentaux et Premiers Pas</h2>
+            <p>Variables, structure de script, saisie utilisateur et paramètres</p>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 1.1</span>
+                <span class="exercise-title">Script de Présentation Personnalisé</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un script qui demande des informations personnelles et affiche une présentation formatée avec couleurs.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">presentation.sh</span></li>
+                    <li>Demander à l'utilisateur : nom, prénom, âge, ville</li>
+                    <li>Afficher une présentation formatée avec des couleurs</li>
+                    <li>Calculer l'année de naissance approximative</li>
+                    <li>Afficher un message de bienvenue personnalisé</li>
+                </ul>
+                
+                <p><strong>Exemple d'affichage attendu :</strong></p>
+                <p>Le script doit produire un affichage coloré avec toutes les informations saisies et l'année de naissance calculée.</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter une validation pour s'assurer que l'âge est un nombre valide et afficher un message d'erreur approprié si ce n'est pas le cas.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 1.2</span>
+                <span class="exercise-title">Script d'Information Système</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un script qui affiche des informations système formatées en utilisant des variables et commandes système.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">system_info.sh</span></li>
+                    <li>Afficher : nom d'utilisateur, nom de la machine, date actuelle</li>
+                    <li>Afficher : répertoire de travail, nombre d'utilisateurs connectés</li>
+                    <li>Utiliser des variables pour stocker ces informations</li>
+                    <li>Formater l'affichage de manière claire et lisible</li>
+                </ul>
+                
+                <p><strong>Variables à utiliser :</strong></p>
+                <ul>
+                    <li><span class="code-inline">USER</span> - nom d'utilisateur</li>
+                    <li><span class="code-inline">HOSTNAME</span> - nom de la machine</li>
+                    <li><span class="code-inline">PWD</span> - répertoire courant</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter l'affichage de l'espace disque disponible et de la charge système moyenne.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 1.3</span>
+                <span class="exercise-title">Calculatrice Simple</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Implémenter une calculatrice basique qui effectue les quatre opérations arithmétiques de base.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">calculette.sh</span></li>
+                    <li>Demander deux nombres à l'utilisateur</li>
+                    <li>Effectuer et afficher : addition, soustraction, multiplication, division</li>
+                    <li>Utiliser l'expansion arithmétique <span class="code-inline">$((...))</span></li>
+                    <li>Formater les résultats de manière claire</li>
+                </ul>
+                
+                <p><strong>Opérations à implémenter :</strong></p>
+                <ul>
+                    <li>Addition des deux nombres</li>
+                    <li>Soustraction du second nombre au premier</li>
+                    <li>Multiplication des deux nombres</li>
+                    <li>Division du premier par le second</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Gérer le cas de la division par zéro et afficher un message d'erreur approprié.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 1.4</span>
+                <span class="exercise-title">Manipulation de Chaînes</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Maîtriser les opérations de base sur les chaînes de caractères en bash.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">manipulation_chaines.sh</span></li>
+                    <li>Demander une phrase à l'utilisateur</li>
+                    <li>Afficher la longueur de la phrase</li>
+                    <li>Convertir en majuscules et minuscules</li>
+                    <li>Extraire et afficher les 3 premiers et 3 derniers caractères</li>
+                </ul>
+                
+                <p><strong>Opérations à réaliser :</strong></p>
+                <ul>
+                    <li>Calcul de la longueur avec <span class="code-inline">${#variable}</span></li>
+                    <li>Conversion en majuscules avec <span class="code-inline">${variable^^}</span></li>
+                    <li>Conversion en minuscules avec <span class="code-inline">${variable,,}</span></li>
+                    <li>Extraction de sous-chaînes avec <span class="code-inline">${variable:position:longueur}</span></li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Compter et afficher le nombre de mots dans la phrase saisie.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 1.5</span>
+                <span class="exercise-title">Script de Salutation Interactif</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un script interactif qui adapte sa salutation selon l'heure de la journée.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">salutation.sh</span></li>
+                    <li>Demander le nom de l'utilisateur</li>
+                    <li>Récupérer l'heure actuelle</li>
+                    <li>Afficher une salutation appropriée selon l'heure</li>
+                    <li>Utiliser des couleurs pour rendre l'affichage attrayant</li>
+                </ul>
+                
+                <p><strong>Salutations selon l'heure :</strong></p>
+                <ul>
+                    <li>6h-12h : "Bonjour"</li>
+                    <li>12h-18h : "Bon après-midi"</li>
+                    <li>18h-22h : "Bonsoir"</li>
+                    <li>22h-6h : "Bonne nuit"</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter l'affichage de la date complète et du jour de la semaine dans la salutation.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 1.6</span>
+                <span class="exercise-title">Gestionnaire de Paramètres</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un script qui traite les paramètres de ligne de commande et affiche des informations appropriées.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">parametres.sh</span></li>
+                    <li>Afficher le nombre total de paramètres reçus</li>
+                    <li>Afficher tous les paramètres un par un avec leur position</li>
+                    <li>Afficher le nom du script</li>
+                    <li>Gérer le cas où aucun paramètre n'est fourni</li>
+                </ul>
+                
+                <p><strong>Variables spéciales à utiliser :</strong></p>
+                <ul>
+                    <li><span class="code-inline">$#</span> - nombre de paramètres</li>
+                    <li><span class="code-inline">$0</span> - nom du script</li>
+                    <li><span class="code-inline">$1, $2, ...</span> - paramètres individuels</li>
+                    <li><span class="code-inline">$@</span> - tous les paramètres</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter une option d'aide (-h ou --help) qui affiche la documentation du script.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

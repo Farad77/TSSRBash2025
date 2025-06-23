@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annuaire - Formation Bash Scripting TSSR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2563eb;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .course-info {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .course-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .course-info p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2563eb;
+            display: block;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .session-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .session-header {
+            background: #2563eb;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: -25px -25px 20px -25px;
+            text-align: center;
+        }
+
+        .session-title {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .session-subtitle {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .links-section {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            color: #374151;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 4px;
+            height: 20px;
+            background: #2563eb;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .exercises-link {
+            display: block;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .exercises-link:hover {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            transform: translateX(5px);
+        }
+
+        .corrections-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .correction-link {
+            display: block;
+            background: #ecfdf5;
+            color: #047857;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border-left: 4px solid #10b981;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .correction-link:hover {
+            background: #d1fae5;
+            transform: translateX(3px);
+        }
+
+        .github-notice {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .github-notice h3 {
+            color: #0369a1;
+            margin-bottom: 10px;
+        }
+
+        .github-notice p {
+            color: #075985;
+            font-size: 0.95em;
+        }
+
+        .github-link {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .github-link:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .sessions-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Annuaire des Exercices</h1>
+            <div class="subtitle">Formation Bash Scripting - TSSR (35h)</div>
+        </div>
+
+        <div class="course-info">
+            <h2>Formation Bash Scripting</h2>
+            <p>Accès rapide aux exercices et corrections - Toutes les séances</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number">5</span>
+                <div class="stat-label">Séances</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">30+</span>
+                <div class="stat-label">Exercices</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">35h</span>
+                <div class="stat-label">Formation</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">100%</span>
+                <div class="stat-label">Disponible</div>
+            </div>
+        </div>
+
+        <div class="sessions-grid">
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-title">Séance 1</div>
+                    <div class="session-subtitle">Fondamentaux et Premiers Pas</div>
+                </div>
+                
+                <div class="links-section">
+                    <div class="section-title">📝 Exercices</div>
+                    <a href="fiches_exercices_seance1.html" class="exercises-link">
+                        Fiche d'Exercices - Séance 1
+                    </a>
+                    
+                    <div class="section-title">✅ Corrections</div>
+                    <div class="corrections-list">
+                        <a href="corrections/seance1/correction_exercice_1.1.sh" class="correction-link">correction_exercice_1.1.sh</a>
+                        <a href="corrections/seance1/correction_exercice_1.2.sh" class="correction-link">correction_exercice_1.2.sh</a>
+                        <a href="corrections/seance1/correction_exercice_1.3.sh" class="correction-link">correction_exercice_1.3.sh</a>
+                        <a href="corrections/seance1/correction_exercice_1.4.sh" class="correction-link">correction_exercice_1.4.sh</a>
+                        <a href="corrections/seance1/correction_exercice_1.5.sh" class="correction-link">correction_exercice_1.5.sh</a>
+                        <a href="corrections/seance1/correction_exercice_1.6.sh" class="correction-link">correction_exercice_1.6.sh</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-title">Séance 2</div>
+                    <div class="session-subtitle">Structures Conditionnelles</div>
+                </div>
+                
+                <div class="links-section">
+                    <div class="section-title">📝 Exercices</div>
+                    <a href="fiches_exercices_seance2.html" class="exercises-link">
+                        Fiche d'Exercices - Séance 2
+                    </a>
+                    
+                    <div class="section-title">✅ Corrections</div>
+                    <div class="corrections-list">
+                        <a href="corrections/seance2/" class="correction-link">Voir les corrections →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-title">Séance 3</div>
+                    <div class="session-subtitle">Boucles et Itérations</div>
+                </div>
+                
+                <div class="links-section">
+                    <div class="section-title">📝 Exercices</div>
+                    <a href="fiches_exercices_seance3.html" class="exercises-link">
+                        Fiche d'Exercices - Séance 3
+                    </a>
+                    
+                    <div class="section-title">✅ Corrections</div>
+                    <div class="corrections-list">
+                        <a href="corrections/seance3/" class="correction-link">Voir les corrections →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-title">Séance 4</div>
+                    <div class="session-subtitle">Fonctions et Scripts Avancés</div>
+                </div>
+                
+                <div class="links-section">
+                    <div class="section-title">📝 Exercices</div>
+                    <a href="fiches_exercices_seance4.html" class="exercises-link">
+                        Fiche d'Exercices - Séance 4
+                    </a>
+                    
+                    <div class="section-title">✅ Corrections</div>
+                    <div class="corrections-list">
+                        <a href="corrections/seance4/" class="correction-link">Voir les corrections →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-title">Séance 5</div>
+                    <div class="session-subtitle">Projets et Applications</div>
+                </div>
+                
+                <div class="links-section">
+                    <div class="section-title">📝 Exercices</div>
+                    <a href="fiches_exercices_seance5.html" class="exercises-link">
+                        Fiche d'Exercices - Séance 5
+                    </a>
+                    
+                    <div class="section-title">✅ Corrections</div>
+                    <div class="corrections-list">
+                        <a href="corrections/seance5/" class="correction-link">Voir les corrections →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="github-notice">
+            <h3>🚀 Hébergé sur GitHub Pages</h3>
+            <p>Cette formation est disponible en ligne grâce à GitHub Pages. Tous les exercices et corrections sont accessibles directement depuis votre navigateur.</p>
+            <a href="#" class="github-link">Voir le Repository GitHub</a>
+        </div>
+    </div>
+</body>
+</html>
