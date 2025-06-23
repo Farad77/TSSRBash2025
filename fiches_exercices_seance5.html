@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche d'Exercices - Séance 5 - Formation Bash Scripting TSSR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            border-bottom: 3px solid #ea580c;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #ea580c;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .session-info {
+            background: linear-gradient(135deg, #ea580c, #f97316);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .session-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .session-info p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .exercise {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .exercise-header {
+            background: #ea580c;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: -25px -25px 20px -25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exercise-number {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .exercise-title {
+            font-size: 1.1em;
+        }
+
+        .objective {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .objective h4 {
+            color: #047857;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .objective p {
+            color: #065f46;
+            font-size: 0.95em;
+        }
+
+        .content {
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        .content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .code-inline {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #1e40af;
+        }
+
+        .files-needed {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .files-needed h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .files-needed p {
+            color: #78350f;
+            font-size: 0.95em;
+        }
+
+        .bonus {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bonus h4 {
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .bonus p {
+            color: #075985;
+            font-size: 0.95em;
+        }
+
+        .project {
+            background: #fefce8;
+            border: 2px solid #eab308;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .project-header {
+            background: #eab308;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: -25px -25px 20px -25px;
+            text-align: center;
+        }
+
+        .project-header h3 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .project-part {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .project-part h4 {
+            color: #ea580c;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #fed7aa;
+            padding-bottom: 8px;
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ea580c;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            background: #c2410c;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: none;
+                padding: 20px;
+            }
+            
+            .print-button {
+                display: none;
+            }
+            
+            .exercise, .project {
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+            }
+            
+            .session-info {
+                page-break-after: avoid;
+            }
+        }
+
+        @page {
+            margin: 2cm;
+            @bottom-center {
+                content: "Formation Bash Scripting TSSR - Séance 5 - Page " counter(page);
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Imprimer PDF</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Fiche d'Exercices</h1>
+            <div class="subtitle">Formation Bash Scripting - TSSR (35h)</div>
+        </div>
+
+        <div class="session-info">
+            <h2>Séance 5 - Sécurité et Projet Final</h2>
+            <p>Sécurisation des scripts, audit et développement d'un projet complet</p>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 5.1</span>
+                <span class="exercise-title">Audit de Sécurité</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Analyser un script vulnérable pour identifier et corriger les failles de sécurité courantes en bash scripting.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">audit_securite.sh</span></li>
+                    <li>Analyser le script vulnérable fourni ligne par ligne</li>
+                    <li>Identifier au moins 7 vulnérabilités différentes</li>
+                    <li>Créer une version corrigée et sécurisée</li>
+                    <li>Documenter chaque faille et sa correction</li>
+                </ul>
+                
+                <p><strong>Types de vulnérabilités à rechercher :</strong></p>
+                <ul>
+                    <li><strong>Injection de commandes :</strong> Variables non échappées</li>
+                    <li><strong>Path Traversal :</strong> Chemins relatifs dangereux</li>
+                    <li><strong>Permissions :</strong> Fichiers créés avec droits trop ouverts</li>
+                    <li><strong>Mots de passe :</strong> Stockage en clair, affichage</li>
+                    <li><strong>Validation :</strong> Entrées utilisateur non vérifiées</li>
+                    <li><strong>Race conditions :</strong> Fichiers temporaires prévisibles</li>
+                    <li><strong>Information disclosure :</strong> Fuites d'informations sensibles</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p><span class="code-inline">exercices_data/seance5/vulnerable.sh</span> - Script intentionnellement vulnérable contenant 7 failles de sécurité</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Créer un script d'audit automatique qui détecte ces vulnérabilités dans d'autres scripts et proposer des corrections automatiques.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 5.2</span>
+                <span class="exercise-title">Script d'Administration Sécurisé</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un script d'administration système appliquant toutes les bonnes pratiques de sécurité en bash.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">admin_securise.sh</span></li>
+                    <li>Implémenter un système d'authentification par clé</li>
+                    <li>Appliquer le principe du moindre privilège</li>
+                    <li>Valider toutes les entrées utilisateur</li>
+                    <li>Implémenter un logging de sécurité complet</li>
+                </ul>
+                
+                <p><strong>Fonctionnalités sécurisées :</strong></p>
+                <ul>
+                    <li><strong>Authentification :</strong> Vérification par fichier de clés</li>
+                    <li><strong>Autorisation :</strong> Contrôle des actions par utilisateur</li>
+                    <li><strong>Validation :</strong> Sanitisation de toutes les entrées</li>
+                    <li><strong>Audit :</strong> Logging de toutes les actions sensibles</li>
+                    <li><strong>Chiffrement :</strong> Protection des données sensibles</li>
+                    <li><strong>Isolation :</strong> Exécution dans un environnement contrôlé</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p><span class="code-inline">exercices_data/seance5/passwd_test</span> - Fichier de test de mots de passe pour les fonctions d'authentification</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter l'intégration avec PAM (Pluggable Authentication Modules) et la détection d'intrusion en temps réel.</p>
+            </div>
+        </div>
+
+        <div class="project">
+            <div class="project-header">
+                <h3>🚀 Projet Final - Système de Sauvegarde Automatisé</h3>
+                <p>Projet intégrant toutes les compétences acquises lors de la formation</p>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif Global</h4>
+                <p>Développer un système de sauvegarde automatisé complet, sécurisé et robuste intégrant toutes les techniques apprises pendant la formation.</p>
+            </div>
+
+            <div class="project-part">
+                <h4>Partie 1 - Architecture et Configuration</h4>
+                <div class="content">
+                    <p><strong>Fichier :</strong> <span class="code-inline">backup_system_config.sh</span></p>
+                    <ul>
+                        <li>Créer un fichier de configuration YAML ou INI</li>
+                        <li>Définir les sources de sauvegarde (répertoires, bases de données)</li>
+                        <li>Configurer les destinations (local, distant, cloud)</li>
+                        <li>Paramétrer les planifications et rotations</li>
+                        <li>Implémenter la validation de configuration</li>
+                    </ul>
+                    
+                    <p><strong>Configuration requise :</strong></p>
+                    <ul>
+                        <li>Sources multiples avec priorités</li>
+                        <li>Destinations redondantes</li>
+                        <li>Politiques de rétention personnalisables</li>
+                        <li>Notifications et alertes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-part">
+                <h4>Partie 2 - Moteur de Sauvegarde</h4>
+                <div class="content">
+                    <p><strong>Fichier :</strong> <span class="code-inline">backup_engine.sh</span></p>
+                    <ul>
+                        <li>Implémenter les sauvegardes incrémentales et différentielles</li>
+                        <li>Gérer la compression et le chiffrement</li>
+                        <li>Calculer et vérifier les checksums</li>
+                        <li>Gérer les erreurs et reprises automatiques</li>
+                        <li>Optimiser les performances avec parallélisation</li>
+                    </ul>
+                    
+                    <p><strong>Fonctionnalités avancées :</strong></p>
+                    <ul>
+                        <li>Détection de modifications avec rsync</li>
+                        <li>Snapshot LVM pour la cohérence</li>
+                        <li>Transfert sécurisé via SSH/SCP</li>
+                        <li>Gestion de la bande passante</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-part">
+                <h4>Partie 3 - Monitoring et Reporting</h4>
+                <div class="content">
+                    <p><strong>Fichier :</strong> <span class="code-inline">backup_monitor.sh</span></p>
+                    <ul>
+                        <li>Surveiller l'état des sauvegardes en temps réel</li>
+                        <li>Générer des rapports détaillés automatiques</li>
+                        <li>Implémenter des alertes intelligentes</li>
+                        <li>Créer un dashboard web simple</li>
+                        <li>Archiver les logs avec rotation automatique</li>
+                    </ul>
+                    
+                    <p><strong>Métriques à surveiller :</strong></p>
+                    <ul>
+                        <li>Temps d'exécution et taux de succès</li>
+                        <li>Volumes de données et ratios de compression</li>
+                        <li>Utilisation des ressources système</li>
+                        <li>Alertes proactives sur les tendances</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-part">
+                <h4>Partie 4 - Restauration et Administration</h4>
+                <div class="content">
+                    <p><strong>Fichier :</strong> <span class="code-inline">backup_restore.sh</span></p>
+                    <ul>
+                        <li>Implémenter la restauration sélective de fichiers</li>
+                        <li>Créer un catalogue de sauvegardes interrogeable</li>
+                        <li>Gérer les conflits de versions lors de la restauration</li>
+                        <li>Implémenter des tests automatiques de restauration</li>
+                        <li>Créer une interface d'administration complète</li>
+                    </ul>
+                    
+                    <p><strong>Interface d'administration :</strong></p>
+                    <ul>
+                        <li>Menu interactif avec toutes les fonctions</li>
+                        <li>Recherche et navigation dans les archives</li>
+                        <li>Tests d'intégrité et validation</li>
+                        <li>Maintenance et nettoyage automatique</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="files-needed">
+                <h4>📁 Structure de données projet</h4>
+                <p><span class="code-inline">exercices_data/projet_final/</span> - Répertoire complet avec structure de test, configurations d'exemple et données de démonstration</p>
+            </div>
+
+            <div class="bonus">
+                <h4>🌟 Défis Bonus du Projet</h4>
+                <ul>
+                    <li>Intégration avec des services cloud (AWS S3, Google Drive)</li>
+                    <li>Interface web avec authentification pour le monitoring</li>
+                    <li>Support des bases de données (MySQL, PostgreSQL) avec dump cohérent</li>
+                    <li>Réplication géographique avec synchronisation</li>
+                    <li>API REST pour l'intégration avec d'autres outils</li>
+                    <li>Tests unitaires et d'intégration automatisés</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

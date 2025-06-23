@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche d'Exercices - Séance 4 - Formation Bash Scripting TSSR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            border-bottom: 3px solid #7c3aed;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #7c3aed;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .session-info {
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .session-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .session-info p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .exercise {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .exercise-header {
+            background: #7c3aed;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: -25px -25px 20px -25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exercise-number {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .exercise-title {
+            font-size: 1.1em;
+        }
+
+        .objective {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .objective h4 {
+            color: #047857;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .objective p {
+            color: #065f46;
+            font-size: 0.95em;
+        }
+
+        .content {
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        .content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .code-inline {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #1e40af;
+        }
+
+        .files-needed {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .files-needed h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .files-needed p {
+            color: #78350f;
+            font-size: 0.95em;
+        }
+
+        .bonus {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bonus h4 {
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .bonus p {
+            color: #075985;
+            font-size: 0.95em;
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            background: #6d28d9;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: none;
+                padding: 20px;
+            }
+            
+            .print-button {
+                display: none;
+            }
+            
+            .exercise {
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+            }
+            
+            .session-info {
+                page-break-after: avoid;
+            }
+        }
+
+        @page {
+            margin: 2cm;
+            @bottom-center {
+                content: "Formation Bash Scripting TSSR - Séance 4 - Page " counter(page);
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Imprimer PDF</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Fiche d'Exercices</h1>
+            <div class="subtitle">Formation Bash Scripting - TSSR (35h)</div>
+        </div>
+
+        <div class="session-info">
+            <h2>Séance 4 - Techniques Avancées</h2>
+            <p>Gestion d'erreurs, tableaux, processus, IPC et programmation système</p>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 4.1</span>
+                <span class="exercise-title">Sauvegarde Sécurisée</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un système de sauvegarde robuste avec gestion d'erreurs complète et logging détaillé.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">sauvegarde_securisee.sh</span></li>
+                    <li>Implémenter une gestion d'erreurs robuste avec <span class="code-inline">trap</span></li>
+                    <li>Créer des archives avec vérification d'intégrité</li>
+                    <li>Gérer les sauvegardes rotatives avec historique</li>
+                    <li>Implémenter un système de logging complet</li>
+                </ul>
+                
+                <p><strong>Fonctionnalités requises :</strong></p>
+                <ul>
+                    <li>Vérification de l'espace disque avant sauvegarde</li>
+                    <li>Création d'archives tar.gz avec horodatage</li>
+                    <li>Calcul et vérification de checksums MD5</li>
+                    <li>Nettoyage automatique des anciennes sauvegardes</li>
+                    <li>Rapport détaillé avec statistiques</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter le chiffrement des archives avec GPG et l'envoi de notifications par email en cas d'erreur.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 4.2</span>
+                <span class="exercise-title">Installateur d'Application</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un installateur automatique d'applications avec détection de dépendances et configuration système.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">installateur_app.sh</span></li>
+                    <li>Détecter la distribution Linux et le gestionnaire de paquets</li>
+                    <li>Vérifier et installer les dépendances automatiquement</li>
+                    <li>Configurer l'application selon l'environnement</li>
+                    <li>Créer un script de désinstallation automatique</li>
+                </ul>
+                
+                <p><strong>Gestion des systèmes :</strong></p>
+                <ul>
+                    <li><strong>Debian/Ubuntu :</strong> apt-get, dpkg</li>
+                    <li><strong>CentOS/RHEL :</strong> yum, rpm</li>
+                    <li><strong>Arch Linux :</strong> pacman</li>
+                    <li>Détection automatique avec <span class="code-inline">/etc/os-release</span></li>
+                    <li>Gestion des privilèges sudo/root</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la compilation depuis les sources si les paquets ne sont pas disponibles et la création d'un package personnalisé.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 4.3</span>
+                <span class="exercise-title">Gestionnaire d'Inventaire</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un système de gestion d'inventaire utilisant des tableaux associatifs et structures de données avancées.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">gestionnaire_inventaire.sh</span></li>
+                    <li>Utiliser des tableaux associatifs pour stocker les données</li>
+                    <li>Implémenter un menu CRUD (Create, Read, Update, Delete)</li>
+                    <li>Sauvegarder les données de manière persistante</li>
+                    <li>Générer des rapports et statistiques</li>
+                </ul>
+                
+                <p><strong>Fonctionnalités du gestionnaire :</strong></p>
+                <ul>
+                    <li>Ajouter/modifier/supprimer des articles</li>
+                    <li>Recherche multicritère (nom, catégorie, prix)</li>
+                    <li>Gestion des stocks et alertes de rupture</li>
+                    <li>Calcul de valeurs totales par catégorie</li>
+                    <li>Export des données en CSV</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter un système de code-barres fictif et la gestion des fournisseurs avec historique des prix.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 4.4</span>
+                <span class="exercise-title">Analyseur de Performances</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un outil de monitoring système en temps réel avec collecte et analyse de métriques de performance.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">analyseur_performance.sh</span></li>
+                    <li>Collecter les métriques système en continu</li>
+                    <li>Calculer des moyennes mobiles et détection d'anomalies</li>
+                    <li>Générer des alertes basées sur des seuils</li>
+                    <li>Archiver les données historiques</li>
+                </ul>
+                
+                <p><strong>Métriques à surveiller :</strong></p>
+                <ul>
+                    <li><strong>CPU :</strong> Utilisation globale et par cœur</li>
+                    <li><strong>Mémoire :</strong> RAM, swap, buffers/cache</li>
+                    <li><strong>Disque :</strong> Utilisation, I/O, latence</li>
+                    <li><strong>Réseau :</strong> Trafic entrant/sortant</li>
+                    <li><strong>Processus :</strong> Top consommateurs de ressources</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la génération de graphiques ASCII des tendances et l'intégration avec des outils externes (htop, iotop).</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 4.5</span>
+                <span class="exercise-title">Superviseur de Services</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un système de supervision automatique des services avec redémarrage intelligent et notifications.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">superviseur_services.sh</span></li>
+                    <li>Surveiller une liste configurable de services</li>
+                    <li>Implémenter des tentatives de redémarrage avec backoff</li>
+                    <li>Gérer les dépendances entre services</li>
+                    <li>Logger toutes les actions et événements</li>
+                </ul>
+                
+                <p><strong>Fonctionnalités avancées :</strong></p>
+                <ul>
+                    <li>Configuration par fichier externe (services.conf)</li>
+                    <li>Tests de santé personnalisés par service</li>
+                    <li>Escalade des alertes selon la criticité</li>
+                    <li>Mode démon avec signaux UNIX</li>
+                    <li>Interface de contrôle (start/stop/status/reload)</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter l'intégration avec systemd/init.d et la création automatique de scripts de service.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 4.6</span>
+                <span class="exercise-title">Gestionnaire de Tâches Parallèles</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un système d'exécution de tâches en parallèle avec gestion de la charge et synchronisation.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">gestionnaire_parallele.sh</span></li>
+                    <li>Exécuter des tâches en parallèle avec limitation du nombre de processus</li>
+                    <li>Implémenter une file d'attente de travaux</li>
+                    <li>Gérer la synchronisation et la collecte des résultats</li>
+                    <li>Afficher la progression en temps réel</li>
+                </ul>
+                
+                <p><strong>Contrôle de l'exécution :</strong></p>
+                <ul>
+                    <li>Limitation du nombre de processus simultanés</li>
+                    <li>Gestion des timeouts par tâche</li>
+                    <li>Relance automatique des tâches échouées</li>
+                    <li>Collecte et agrégation des codes de retour</li>
+                    <li>Barre de progression avec statistiques</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la planification des tâches par priorité et la distribution sur plusieurs machines distantes via SSH.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 4.7</span>
+                <span class="exercise-title">Système Producteur-Consommateur</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Implémenter un système de communication inter-processus avec des tubes nommés (FIFO) et signaux.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer des fichiers <span class="code-inline">producteur.sh</span> et <span class="code-inline">consommateur.sh</span></li>
+                    <li>Utiliser des tubes nommés (mkfifo) pour la communication</li>
+                    <li>Implémenter un protocole de messages structuré</li>
+                    <li>Gérer la synchronisation avec des signaux UNIX</li>
+                    <li>Assurer la robustesse en cas de panne d'un processus</li>
+                </ul>
+                
+                <p><strong>Architecture du système :</strong></p>
+                <ul>
+                    <li><strong>Producteur :</strong> Génère des tâches et les envoie</li>
+                    <li><strong>Consommateur :</strong> Traite les tâches reçues</li>
+                    <li><strong>Messages :</strong> Format JSON ou délimité</li>
+                    <li><strong>Contrôle :</strong> Signaux pour start/stop/pause</li>
+                    <li><strong>Monitoring :</strong> État de la file et statistiques</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la persistence des messages non traités et la gestion de plusieurs consommateurs concurrents.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 4.8</span>
+                <span class="exercise-title">Système de Verrous Distribués</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un mécanisme de verrouillage pour coordonner l'exécution de scripts concurrents.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">gestionnaire_verrous.sh</span></li>
+                    <li>Implémenter des verrous exclusifs et partagés</li>
+                    <li>Gérer les timeouts et la détection de deadlocks</li>
+                    <li>Créer une interface pour acquérir/libérer des verrous</li>
+                    <li>Assurer le nettoyage automatique des verrous orphelins</li>
+                </ul>
+                
+                <p><strong>Types de verrous :</strong></p>
+                <ul>
+                    <li><strong>Exclusif :</strong> Un seul processus peut acquérir</li>
+                    <li><strong>Partagé :</strong> Plusieurs lecteurs, un seul écrivain</li>
+                    <li><strong>Temporaire :</strong> Expiration automatique après timeout</li>
+                    <li><strong>Nommé :</strong> Verrous identifiés par nom de ressource</li>
+                    <li><strong>Hiérarchique :</strong> Verrous avec dépendances</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la gestion des verrous distribués via fichiers réseau (NFS) et un système de logs d'audit des accès concurrents.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

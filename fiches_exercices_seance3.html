@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche d'Exercices - Séance 3 - Formation Bash Scripting TSSR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            border-bottom: 3px solid #059669;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #059669;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .session-info {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .session-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .session-info p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .exercise {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .exercise-header {
+            background: #059669;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: -25px -25px 20px -25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exercise-number {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .exercise-title {
+            font-size: 1.1em;
+        }
+
+        .objective {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .objective h4 {
+            color: #047857;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .objective p {
+            color: #065f46;
+            font-size: 0.95em;
+        }
+
+        .content {
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        .content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .code-inline {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #1e40af;
+        }
+
+        .files-needed {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .files-needed h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .files-needed p {
+            color: #78350f;
+            font-size: 0.95em;
+        }
+
+        .bonus {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bonus h4 {
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .bonus p {
+            color: #075985;
+            font-size: 0.95em;
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            background: #047857;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: none;
+                padding: 20px;
+            }
+            
+            .print-button {
+                display: none;
+            }
+            
+            .exercise {
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+            }
+            
+            .session-info {
+                page-break-after: avoid;
+            }
+        }
+
+        @page {
+            margin: 2cm;
+            @bottom-center {
+                content: "Formation Bash Scripting TSSR - Séance 3 - Page " counter(page);
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Imprimer PDF</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Fiche d'Exercices</h1>
+            <div class="subtitle">Formation Bash Scripting - TSSR (35h)</div>
+        </div>
+
+        <div class="session-info">
+            <h2>Séance 3 - Manipulation de Fichiers et Texte</h2>
+            <p>Redirections, pipes, grep, sed, awk et traitement de données</p>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 3.1</span>
+                <span class="exercise-title">Analyseur de Logs Système</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un script d'analyse de fichiers de logs système pour extraire des informations critiques.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">analyseur_logs.sh</span></li>
+                    <li>Analyser le fichier de logs fourni</li>
+                    <li>Compter les messages par niveau de sévérité (INFO, WARN, ERROR)</li>
+                    <li>Identifier les 5 services les plus actifs</li>
+                    <li>Afficher un résumé statistique complet</li>
+                </ul>
+                
+                <p><strong>Analyses à effectuer :</strong></p>
+                <ul>
+                    <li>Nombre total de lignes de log</li>
+                    <li>Répartition par niveau (INFO/WARN/ERROR)</li>
+                    <li>Services mentionnés le plus fréquemment</li>
+                    <li>Plage horaire d'activité (première et dernière entrée)</li>
+                    <li>Messages d'erreur uniques</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p><span class="code-inline">exercices_data/seance3/test_syslog.log</span> - Fichier de logs système avec différents niveaux de sévérité</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Générer un graphique ASCII des erreurs par heure et détecter les pics d'activité anormaux.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 3.2</span>
+                <span class="exercise-title">Générateur de Configuration</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un générateur automatique de fichiers de configuration pour différents services système.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">generateur_config.sh</span></li>
+                    <li>Proposer un menu pour différents types de configurations</li>
+                    <li>Demander les paramètres nécessaires à l'utilisateur</li>
+                    <li>Générer des fichiers de configuration valides</li>
+                    <li>Sauvegarder avec horodatage et validation</li>
+                </ul>
+                
+                <p><strong>Types de configuration à supporter :</strong></p>
+                <ul>
+                    <li><strong>Apache :</strong> VirtualHost avec domaine et répertoire</li>
+                    <li><strong>SSH :</strong> Configuration sécurisée personnalisée</li>
+                    <li><strong>MySQL :</strong> Configuration de base de données</li>
+                    <li><strong>Cron :</strong> Planification de tâches automatiques</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter une validation syntaxique des fichiers générés et la création automatique de sauvegardes des configurations existantes.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 3.3</span>
+                <span class="exercise-title">Auditeur de Configurations</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un outil d'audit de sécurité pour analyser les fichiers de configuration système.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">auditeur_config.sh</span></li>
+                    <li>Analyser les fichiers de configuration fournis</li>
+                    <li>Détecter les problèmes de sécurité potentiels</li>
+                    <li>Générer un rapport d'audit détaillé</li>
+                    <li>Proposer des recommandations d'amélioration</li>
+                </ul>
+                
+                <p><strong>Vérifications de sécurité :</strong></p>
+                <ul>
+                    <li><strong>Apache :</strong> Directory Listing, ServerTokens, timeout</li>
+                    <li><strong>SSH :</strong> PermitRootLogin, PasswordAuthentication</li>
+                    <li><strong>MySQL :</strong> Utilisateurs par défaut, ports standard</li>
+                    <li><strong>Général :</strong> Permissions de fichiers, mots de passe faibles</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p><span class="code-inline">exercices_data/seance3/test_apache.conf</span>, <span class="code-inline">test_ssh.conf</span>, <span class="code-inline">test_mysql.conf</span> - Fichiers de configuration à auditer</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Implémenter un système de scoring de sécurité et la génération automatique de configurations sécurisées corrigées.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 3.4</span>
+                <span class="exercise-title">Extracteur d'Emails et URLs</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un outil d'extraction de données utilisant des expressions régulières avancées.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">extracteur_donnees.sh</span></li>
+                    <li>Extraire toutes les adresses email du fichier de test</li>
+                    <li>Extraire toutes les URLs (http/https/ftp)</li>
+                    <li>Extraire les numéros de téléphone français</li>
+                    <li>Valider les formats et trier les résultats</li>
+                </ul>
+                
+                <p><strong>Formats à détecter :</strong></p>
+                <ul>
+                    <li><strong>Emails :</strong> Format standard RFC avec validation</li>
+                    <li><strong>URLs :</strong> Protocoles http, https, ftp avec paramètres</li>
+                    <li><strong>Téléphones :</strong> Formats français (01.23.45.67.89, +33, etc.)</li>
+                    <li><strong>Validation :</strong> Rejeter les formats invalides</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p><span class="code-inline">exercices_data/seance3/test_extraction.txt</span> - Document contenant des emails, URLs et numéros de téléphone mélangés</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter l'extraction de dates (différents formats) et la génération d'un fichier CSV avec toutes les données structurées.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 3.5</span>
+                <span class="exercise-title">Configurateur Automatique SSH</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un script de sécurisation automatique de la configuration SSH avec sed.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">securiser_ssh.sh</span></li>
+                    <li>Modifier le fichier de configuration SSH fourni</li>
+                    <li>Appliquer les bonnes pratiques de sécurité</li>
+                    <li>Créer une sauvegarde avant modification</li>
+                    <li>Afficher un résumé des changements effectués</li>
+                </ul>
+                
+                <p><strong>Modifications de sécurité :</strong></p>
+                <ul>
+                    <li>Désactiver PermitRootLogin (passer à "no")</li>
+                    <li>Désactiver PasswordAuthentication</li>
+                    <li>Changer le port par défaut (22 → 2222)</li>
+                    <li>Limiter MaxAuthTries à 3</li>
+                    <li>Activer strictement PubkeyAuthentication</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p><span class="code-inline">exercices_data/seance3/sshd_config_test</span> - Configuration SSH à sécuriser</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la validation de la syntaxe de la configuration modifiée et la possibilité de restaurer la configuration originale.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 3.6</span>
+                <span class="exercise-title">Nettoyeur de Fichiers de Log</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un outil de nettoyage et anonymisation de fichiers de logs avec sed avancé.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">nettoyeur_logs.sh</span></li>
+                    <li>Nettoyer le fichier de logs fourni</li>
+                    <li>Anonymiser les données sensibles</li>
+                    <li>Supprimer les entrées obsolètes</li>
+                    <li>Générer un rapport de nettoyage</li>
+                </ul>
+                
+                <p><strong>Opérations de nettoyage :</strong></p>
+                <ul>
+                    <li>Supprimer les lignes vides et commentaires</li>
+                    <li>Masquer les mots de passe (password=xxx → password=***)</li>
+                    <li>Anonymiser les adresses IP (192.168.1.100 → 192.168.1.XXX)</li>
+                    <li>Supprimer les entrées antérieures à 2024</li>
+                    <li>Nettoyer les lignes contenant "DEBUG"</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p><span class="code-inline">exercices_data/seance3/test_log_file.log</span> - Fichier de logs contenant des données sensibles et anciennes</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter une fonction de compression des logs nettoyés et la planification automatique du nettoyage via cron.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 3.7</span>
+                <span class="exercise-title">Analyseur de Logs Apache</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un analyseur complet de logs Apache pour extraire des statistiques web détaillées.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">analyseur_apache.sh</span></li>
+                    <li>Analyser le fichier de logs Apache fourni</li>
+                    <li>Extraire les statistiques de trafic web</li>
+                    <li>Identifier les tendances et anomalies</li>
+                    <li>Générer un rapport d'analyse complet</li>
+                </ul>
+                
+                <p><strong>Statistiques à calculer :</strong></p>
+                <ul>
+                    <li>Top 10 des adresses IP les plus actives</li>
+                    <li>Répartition des codes de réponse HTTP</li>
+                    <li>Pages les plus visitées</li>
+                    <li>Détection des erreurs 404 et 500</li>
+                    <li>Analyse du trafic par heure</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p><span class="code-inline">exercices_data/seance3/apache_access_test.log</span> - Logs d'accès Apache avec différents patterns de trafic</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la détection d'attaques potentielles (scans de ports, tentatives d'injection) et l'export des résultats en format JSON.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 3.8</span>
+                <span class="exercise-title">Processeur de Fichier CSV</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un outil de traitement et analyse de données CSV avec awk avancé.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">processeur_csv.sh</span></li>
+                    <li>Traiter le fichier CSV d'employés fourni</li>
+                    <li>Calculer des statistiques sur les données</li>
+                    <li>Générer des rapports par département</li>
+                    <li>Effectuer des analyses de tendances</li>
+                </ul>
+                
+                <p><strong>Analyses à effectuer :</strong></p>
+                <ul>
+                    <li>Salaire moyen par département</li>
+                    <li>Employé le mieux et le moins payé</li>
+                    <li>Répartition des employés par département</li>
+                    <li>Ancienneté moyenne par département</li>
+                    <li>Génération de rapports formatés</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p><span class="code-inline">exercices_data/seance3/employes_test.csv</span> - Base de données d'employés avec salaires et départements</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la génération de graphiques ASCII des salaires et l'export de sous-ensembles de données selon des critères personnalisés.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

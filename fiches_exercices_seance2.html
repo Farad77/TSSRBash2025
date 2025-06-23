@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche d'Exercices - Séance 2 - Formation Bash Scripting TSSR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            border-bottom: 3px solid #dc2626;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #dc2626;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .session-info {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .session-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .session-info p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .exercise {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .exercise-header {
+            background: #dc2626;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: -25px -25px 20px -25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exercise-number {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .exercise-title {
+            font-size: 1.1em;
+        }
+
+        .objective {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .objective h4 {
+            color: #047857;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .objective p {
+            color: #065f46;
+            font-size: 0.95em;
+        }
+
+        .content {
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        .content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .code-inline {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #1e40af;
+        }
+
+        .files-needed {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .files-needed h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .files-needed p {
+            color: #78350f;
+            font-size: 0.95em;
+        }
+
+        .bonus {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bonus h4 {
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .bonus p {
+            color: #075985;
+            font-size: 0.95em;
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: none;
+                padding: 20px;
+            }
+            
+            .print-button {
+                display: none;
+            }
+            
+            .exercise {
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+            }
+            
+            .session-info {
+                page-break-after: avoid;
+            }
+        }
+
+        @page {
+            margin: 2cm;
+            @bottom-center {
+                content: "Formation Bash Scripting TSSR - Séance 2 - Page " counter(page);
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Imprimer PDF</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Fiche d'Exercices</h1>
+            <div class="subtitle">Formation Bash Scripting - TSSR (35h)</div>
+        </div>
+
+        <div class="session-info">
+            <h2>Séance 2 - Structures de Contrôle</h2>
+            <p>Conditions, boucles, fonctions et structures de contrôle avancées</p>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 2.1</span>
+                <span class="exercise-title">Vérificateur d'Âge et Permissions</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Implémenter un système de vérification d'âge avec gestion des permissions selon différentes catégories.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">verificateur_age.sh</span></li>
+                    <li>Demander l'âge de l'utilisateur</li>
+                    <li>Déterminer la catégorie : mineur (< 18), adulte (18-65), senior (> 65)</li>
+                    <li>Afficher les permissions correspondantes pour chaque catégorie</li>
+                    <li>Gérer les cas d'erreur (âge invalide, négatif, etc.)</li>
+                </ul>
+                
+                <p><strong>Permissions par catégorie :</strong></p>
+                <ul>
+                    <li><strong>Mineur :</strong> Accès limité, supervision requise</li>
+                    <li><strong>Adulte :</strong> Accès complet, responsabilité personnelle</li>
+                    <li><strong>Senior :</strong> Accès privilégié, assistance disponible</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter une vérification pour les âges extrêmes (< 0 ou > 150) et afficher un message d'erreur spécifique.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 2.2</span>
+                <span class="exercise-title">Analyseur de Mots de Passe</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un script qui analyse la force d'un mot de passe selon plusieurs critères de sécurité.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">analyseur_mdp.sh</span></li>
+                    <li>Demander un mot de passe à l'utilisateur (en mode masqué avec <span class="code-inline">read -s</span>)</li>
+                    <li>Vérifier : longueur minimale (8 caractères)</li>
+                    <li>Vérifier la présence de : majuscules, minuscules, chiffres, caractères spéciaux</li>
+                    <li>Calculer et afficher un score de force (Faible/Moyen/Fort/Très fort)</li>
+                </ul>
+                
+                <p><strong>Critères d'évaluation :</strong></p>
+                <ul>
+                    <li>Longueur ≥ 8 caractères : +1 point</li>
+                    <li>Contient des majuscules : +1 point</li>
+                    <li>Contient des minuscules : +1 point</li>
+                    <li>Contient des chiffres : +1 point</li>
+                    <li>Contient des caractères spéciaux : +1 point</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la détection de mots de passe courants (123456, password, etc.) et réduire le score en conséquence.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 2.3</span>
+                <span class="exercise-title">Menu Système Interactif</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un menu interactif pour administrer le système en utilisant des fonctions et des boucles.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">menu_systeme.sh</span></li>
+                    <li>Afficher un menu avec 6 options</li>
+                    <li>Utiliser des fonctions pour chaque fonctionnalité</li>
+                    <li>Implémenter une boucle pour revenir au menu après chaque action</li>
+                    <li>Gérer les choix invalides avec des messages d'erreur</li>
+                </ul>
+                
+                <p><strong>Options du menu :</strong></p>
+                <ul>
+                    <li><strong>1 :</strong> Afficher les informations système</li>
+                    <li><strong>2 :</strong> Lister les processus en cours</li>
+                    <li><strong>3 :</strong> Afficher l'espace disque</li>
+                    <li><strong>4 :</strong> Montrer les utilisateurs connectés</li>
+                    <li><strong>5 :</strong> Afficher la date et l'heure</li>
+                    <li><strong>6 :</strong> Quitter le programme</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter une option pour surveiller les ressources système en temps réel avec rafraîchissement automatique.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 2.4</span>
+                <span class="exercise-title">Classificateur de Fichiers</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un script qui analyse et classe les fichiers d'un répertoire selon leur type et leurs propriétés.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">classificateur.sh</span></li>
+                    <li>Parcourir tous les fichiers du répertoire courant</li>
+                    <li>Classifier par extension : .txt, .sh, .log, images, autres</li>
+                    <li>Compter le nombre de fichiers par catégorie</li>
+                    <li>Afficher un résumé détaillé avec tailles totales</li>
+                </ul>
+                
+                <p><strong>Classifications à implémenter :</strong></p>
+                <ul>
+                    <li><strong>Scripts :</strong> .sh, .bash, .zsh</li>
+                    <li><strong>Texte :</strong> .txt, .md, .doc</li>
+                    <li><strong>Logs :</strong> .log, .out, .err</li>
+                    <li><strong>Images :</strong> .jpg, .png, .gif, .bmp</li>
+                    <li><strong>Archives :</strong> .zip, .tar, .gz</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la détection des fichiers cachés et des liens symboliques dans le rapport.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 2.5</span>
+                <span class="exercise-title">Générateur de Fichiers de Test</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer un outil qui génère automatiquement une structure de fichiers de test pour les développements.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">generateur_tests.sh</span></li>
+                    <li>Demander le nombre de fichiers à créer</li>
+                    <li>Générer des fichiers avec noms aléatoires et extensions variées</li>
+                    <li>Créer une structure de répertoires (test_files/type/)</li>
+                    <li>Remplir les fichiers avec du contenu de test approprié</li>
+                </ul>
+                
+                <p><strong>Structure à créer :</strong></p>
+                <ul>
+                    <li><strong>test_files/scripts/</strong> : Fichiers .sh avec code bash basique</li>
+                    <li><strong>test_files/docs/</strong> : Fichiers .txt avec du texte lorem ipsum</li>
+                    <li><strong>test_files/logs/</strong> : Fichiers .log avec entrées simulées</li>
+                    <li><strong>test_files/configs/</strong> : Fichiers .conf avec configurations fictives</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p>Aucun fichier externe requis - le script génère tous les fichiers de test.</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter une option pour nettoyer (supprimer) tous les fichiers de test générés précédemment.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 2.6</span>
+                <span class="exercise-title">Moniteur de Services</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer un script de surveillance qui vérifie l'état de services système critiques.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">moniteur_services.sh</span></li>
+                    <li>Définir une liste de services à surveiller</li>
+                    <li>Vérifier l'état de chaque service (actif/inactif)</li>
+                    <li>Afficher un rapport coloré avec statuts</li>
+                    <li>Compter les services actifs et inactifs</li>
+                </ul>
+                
+                <p><strong>Services à surveiller :</strong></p>
+                <ul>
+                    <li>sshd (service SSH)</li>
+                    <li>apache2 ou nginx (serveur web)</li>
+                    <li>mysql ou mariadb (base de données)</li>
+                    <li>cron (planificateur de tâches)</li>
+                    <li>rsyslog (service de logs)</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p>Utilise les fichiers <span class="code-inline">stop.txt</span> (liste des services arrêtés) pour simuler des services inactifs.</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter la possibilité de redémarrer automatiquement les services inactifs avec confirmation utilisateur.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 2.7</span>
+                <span class="exercise-title">Bibliothèque Mathématique</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Développer une collection de fonctions mathématiques avancées réutilisables.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">bibliotheque_math.sh</span></li>
+                    <li>Implémenter des fonctions pour calculs avancés</li>
+                    <li>Créer un menu pour tester chaque fonction</li>
+                    <li>Gérer les cas d'erreur et validations d'entrée</li>
+                    <li>Afficher les résultats avec une précision appropriée</li>
+                </ul>
+                
+                <p><strong>Fonctions à implémenter :</strong></p>
+                <ul>
+                    <li><strong>factorielle(n) :</strong> Calcul de n!</li>
+                    <li><strong>puissance(base, exposant) :</strong> Calcul de base^exposant</li>
+                    <li><strong>pgcd(a, b) :</strong> Plus grand commun diviseur</li>
+                    <li><strong>fibonacci(n) :</strong> Suite de Fibonacci jusqu'à n</li>
+                    <li><strong>premier(n) :</strong> Test de primalité</li>
+                </ul>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter une fonction pour calculer les nombres parfaits et une pour générer des nombres premiers dans un intervalle.</p>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <div class="exercise-header">
+                <span class="exercise-number">Exercice 2.8</span>
+                <span class="exercise-title">Utilitaires Fichiers</span>
+            </div>
+            
+            <div class="objective">
+                <h4>🎯 Objectif</h4>
+                <p>Créer une boîte à outils complète pour la gestion et manipulation de fichiers.</p>
+            </div>
+            
+            <div class="content">
+                <p><strong>Consignes :</strong></p>
+                <ul>
+                    <li>Créer un fichier <span class="code-inline">utilitaires_fichiers.sh</span></li>
+                    <li>Implémenter des fonctions utilitaires pour fichiers</li>
+                    <li>Créer un menu interactif pour accéder aux fonctions</li>
+                    <li>Gérer les erreurs et permissions de fichiers</li>
+                    <li>Afficher des informations détaillées sur les opérations</li>
+                </ul>
+                
+                <p><strong>Fonctions utilitaires :</strong></p>
+                <ul>
+                    <li><strong>sauvegarder(fichier) :</strong> Créer une copie avec timestamp</li>
+                    <li><strong>nettoyer_vieux(dossier, jours) :</strong> Supprimer fichiers anciens</li>
+                    <li><strong>comparer(fichier1, fichier2) :</strong> Comparaison de fichiers</li>
+                    <li><strong>statistiques(dossier) :</strong> Analyse complète d'un répertoire</li>
+                    <li><strong>rechercher(motif, dossier) :</strong> Recherche de fichiers</li>
+                </ul>
+            </div>
+            
+            <div class="files-needed">
+                <h4>📁 Fichiers de données</h4>
+                <p>Utilise les fichiers générés par l'exercice 2.5 dans le répertoire <span class="code-inline">test_files/</span>.</p>
+            </div>
+            
+            <div class="bonus">
+                <h4>🌟 Bonus</h4>
+                <p>Ajouter une fonction de synchronisation entre deux répertoires avec détection des différences.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
