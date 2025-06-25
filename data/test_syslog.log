@@ -1,0 +1,20 @@
+Jan 15 10:30:45 server01 kernel: [12345.678] USB disconnect, address 1
+Jan 15 10:31:02 server01 sshd[1234]: Connection from 192.168.1.100 port 22 ssh2
+Jan 15 10:32:15 server01 apache2: ERROR: Configuration file /etc/apache2/apache2.conf not found
+Jan 15 10:33:20 server01 kernel: [12346.789] USB device connected, address 2
+Jan 15 10:34:25 server01 sshd[1235]: Accepted password for user01 from 192.168.1.101 port 54321 ssh2
+Jan 15 10:35:30 server01 apache2: ERROR: Permission denied: /var/www/html/.htaccess
+Jan 15 10:36:35 server01 mysql[2456]: Connection established from localhost
+Jan 15 10:37:40 server01 postfix/smtpd[3456]: Connection from mail.example.com[203.0.113.10]
+Jan 15 10:38:45 server01 sshd[1236]: Connection from 192.168.1.102 port 22 ssh2
+Jan 15 10:39:50 server01 apache2: httpd started successfully
+Jan 15 10:40:12 server01 kernel: [12347.890] Out of memory: Kill process 4567 (chrome) score 123
+Jan 15 10:41:25 server01 sshd[1237]: Failed password for invalid user admin from 203.0.113.45 port 12345 ssh2
+Jan 15 10:42:33 server01 postfix/smtp[3457]: Sent: 250 2.0.0 Message accepted
+Jan 15 10:43:44 server01 apache2: ERROR: File does not exist: /var/www/html/favicon.ico
+Jan 15 10:44:55 server01 mysqld[2457]: Query OK, 1 row affected (0.01 sec)
+Jan 15 10:45:12 server01 sshd[1238]: Authentication failure for user root from 203.0.113.45
+Jan 15 10:46:23 server01 kernel: [12348.123] TCP: time wait bucket table overflow
+Jan 15 10:47:34 server01 apache2: [notice] Apache/2.4.41 configured -- resuming normal operations
+Jan 15 10:48:45 server01 postfix/cleanup[3458]: Message-id: <20250115094845.ABC123@server01>
+Jan 15 10:49:56 server01 mysql[2458]: ERROR: Access denied for user 'guest'@'localhost'

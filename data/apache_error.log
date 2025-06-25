@@ -1,0 +1,20 @@
+[Wed Jan 15 08:17:45.123456 2025] [core:error] [pid 12345] [client 203.0.113.45] File does not exist: /var/www/html/admin/dashboard
+[Wed Jan 15 08:23:12.234567 2025] [php:error] [pid 12346] [client 203.0.113.45] PHP Fatal error: Uncaught Error: Call to undefined function mysql_connect() in /var/www/html/contact.php:15\nStack trace:\n#0 {main}\n  thrown in /var/www/html/contact.php on line 15
+[Wed Jan 15 08:27:29.345678 2025] [authz_core:error] [pid 12347] [client 203.0.113.45] AH01630: client denied by server configuration: /var/www/html/admin/users
+[Wed Jan 15 08:28:15.456789 2025] [auth_basic:error] [pid 12348] [client 192.168.1.100] AH01617: user admin not found: /api/profile
+[Wed Jan 15 08:32:44.567890 2025] [core:error] [pid 12349] [client 203.0.113.45] File does not exist: /var/www/html/secret
+[Wed Jan 15 08:37:29.678901 2025] [php:error] [pid 12350] [client 203.0.113.45] PHP Warning: Division by zero in /var/www/html/api/settings.php on line 42
+[Wed Jan 15 08:42:44.789012 2025] [core:error] [pid 12351] [client 203.0.113.45] File does not exist: /var/www/html/wp-admin
+[Wed Jan 15 08:47:29.890123 2025] [core:error] [pid 12352] [client 203.0.113.45] File does not exist: /var/www/html/phpmyadmin
+[Wed Jan 15 08:52:44.901234 2025] [core:error] [pid 12353] [client 203.0.113.45] File does not exist: /var/www/html/.env
+[Wed Jan 15 08:57:29.012345 2025] [core:error] [pid 12354] [client 203.0.113.45] File does not exist: /var/www/html/xmlrpc.php
+[Wed Jan 15 09:02:44.123456 2025] [core:error] [pid 12355] [client 203.0.113.45] File does not exist: /var/www/html/config.php
+[Wed Jan 15 09:03:12.234567 2025] [core:error] [pid 12356] [client 10.0.0.25] Request body too large (413): /api/upload, referer: http://example.com/upload
+[Wed Jan 15 09:07:29.345678 2025] [authz_core:error] [pid 12357] [client 203.0.113.45] AH01630: client denied by server configuration: /server-status
+[Wed Jan 15 09:12:44.456789 2025] [core:error] [pid 12358] [client 203.0.113.45] File does not exist: /var/www/html/backup
+[Wed Jan 15 09:15:23.567890 2025] [ssl:warn] [pid 12359] AH01906: RSA server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Wed Jan 15 09:18:45.678901 2025] [mpm_prefork:notice] [pid 12360] AH00163: Apache/2.4.41 (Ubuntu) configured -- resuming normal operations
+[Wed Jan 15 09:22:33.789012 2025] [core:notice] [pid 12361] AH00094: Command line: '/usr/sbin/apache2'
+[Wed Jan 15 09:25:17.890123 2025] [php:error] [pid 12362] [client 192.168.1.100] PHP Parse error: syntax error, unexpected '}' in /var/www/html/includes/functions.php on line 127
+[Wed Jan 15 09:28:41.901234 2025] [rewrite:error] [pid 12363] [client 10.0.0.25] AH00670: Options FollowSymLinks and SymLinksIfOwnerMatch are both off, so the RewriteRule directive is also forbidden due to its similar ability to circumvent directory restrictions : /blog/old-post
+[Wed Jan 15 09:31:55.012345 2025] [fcgid:warn] [pid 12364] [client 198.51.100.78] mod_fcgid: read data timeout in 40 seconds, referer: http://example.com/slow-script

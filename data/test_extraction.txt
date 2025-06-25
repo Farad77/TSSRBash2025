@@ -1,0 +1,51 @@
+Voici un document de test pour l'extraction de données - Exercice 3.4
+=======================================================================
+
+Contacts emails de l'entreprise :
+- Jean Dupont : jean.dupont@example.com (Directeur technique)
+- Marie Martin : marie.martin@entreprise.fr (Responsable RH)
+- Support technique : support@tech-company.org
+- Info générale : info@site-web.net
+- Service client : contact@service-client.com
+- Contact invalide : invalid@email (pas de TLD correct)
+- Adresse temporaire : temp_user@test-server.local
+
+Sites web et ressources en ligne :
+- Site officiel : https://www.example.com
+- Documentation technique : http://docs.example.org/guide
+- API REST principale : https://api.service.com/v1/users
+- Serveur de fichiers : ftp://files.example.com/downloads
+- Interface d'administration : https://admin.internal-system.fr/dashboard
+- Portail client : http://portal.customer-zone.net/login
+- Miroir de sauvegarde : https://backup.mirror-site.org
+
+Numéros de téléphone français :
+- Standard principal : 01 23 45 67 89
+- Service commercial : 02.34.56.78.90
+- Support technique : 03 45 67 89 01
+- Mobile directeur : 06.78.90.12.34
+- Service gratuit : 0800 123 456
+- Numéro court : 3615
+- International : +33 1 23 45 67 89
+- Autre format : 01.23.45.67.89
+- Format invalide : 012 345 6789 (trop court)
+
+Autres données mélangées :
+Email simple : test@test.fr
+URL sans protocole : www.example.com (à traiter différemment)
+Email avec sous-domaine complexe : admin@mail.sub.example.com
+URL HTTPS sécurisée : https://secure.bank.fr/login?redirect=/account
+Numéro mobile : 07 88 99 00 11
+Site avec port : http://localhost:8080/admin
+Email de notification : noreply@notifications.system.com
+
+Formats edge cases pour tester les regex :
+- Email avec chiffres : user123@domain456.com
+- URL avec paramètres : https://api.example.com/search?q=test&limit=10
+- Téléphone avec tirets : 01-23-45-67-89
+- Email avec tirets : jean-pierre@multi-word-domain.fr
+- URL FTP : ftp://user:pass@ftp.example.com/folder
+- Numéro international complet : +33 (0)1 23 45 67 89
+
+Note : Ce fichier contient volontairement des formats variés
+pour tester la robustesse des expressions régulières.

@@ -1,0 +1,51 @@
+# Fichier de log de test pour exercice 3.6 - Nettoyeur de logs
+# ==============================================================
+# Créé pour démonstration des techniques de nettoyage avec sed
+
+2024-01-15 10:30:45 INFO [server] Service web started successfully
+2024-01-15 10:31:02 DEBUG [auth] User admin logged in from 192.168.1.100
+
+# Configuration temporaire pour les tests
+# Ne pas supprimer cette section de commentaires
+
+2024-01-15 10:35:12 ERROR [database] Connection failed to 192.168.1.200
+2024-01-15 10:35:15 INFO [database] Retrying connection...
+2024-01-15 10:35:18 INFO [database] Connected successfully to 192.168.1.200
+
+2024-01-10 08:22:33 INFO [backup] Backup process started
+2024-01-10 08:25:45 WARN [backup] Low disk space detected on /var/backup
+# Mot de passe temporaire pour maintenance: password123
+
+2024-01-10 08:30:12 INFO [auth] User john with password=secret123 logged in successfully
+2024-01-10 08:45:23 DEBUG [session] Session ID xyz789 created for user mary
+
+# Ligne vide suivante pour tester la suppression
+
+
+2023-12-20 14:15:30 OLD [system] Old log entry that should be removed
+2023-11-15 09:30:45 OLD [system] Very old entry from November
+
+# Section de test avec différents patterns
+2024-01-16 09:15:22 INFO [web] HTTP request from 10.0.0.5 processed
+2024-01-16 09:16:33 ERROR [web] Authentication failed for user test with password=admin
+
+2024-01-16 12:00:00 INFO [cleanup] Daily log rotation completed
+2024-01-16 12:05:15 WARN [monitoring] High CPU usage detected: 85%
+
+# Entrées avec adresses IP à anonymiser
+2024-01-16 14:22:17 INFO [access] User connected from 203.0.113.45
+2024-01-16 14:23:33 INFO [access] File downloaded by 10.0.0.25
+2024-01-16 14:24:44 ERROR [security] Blocked suspicious IP: 198.51.100.78
+
+2023-10-01 07:15:30 ANCIENT [backup] Very old backup entry to be cleaned
+2023-09-15 06:30:45 ANCIENT [system] Ancient system log entry
+
+2024-01-17 08:00:00 INFO [system] Current log entries - do not remove
+2024-01-17 08:01:15 DEBUG [performance] System performance check completed
+2024-01-17 08:02:30 INFO [security] Security scan finished - all clear
+
+# Mot de passe en fin de ligne à masquer
+2024-01-17 09:30:22 ERROR [login] Failed authentication: user=testuser password=wrongpass
+2024-01-17 09:31:45 INFO [session] Session established for admin user
+
+# Fin du fichier de test
