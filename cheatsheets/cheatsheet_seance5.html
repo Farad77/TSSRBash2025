@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheet Bash - Séance 5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            body { font-size: 11px; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 text-sm">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
+        <!-- Header -->
+        <div class="bg-red-600 text-white p-4 rounded-t-lg">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold">Bash Scripting - Séance 5</h1>
+                    <p class="text-red-100">Projets et optimisation</p>
+                </div>
+                <div class="text-right text-sm">
+                    <p>TSSR Formation</p>
+                    <p>7 heures</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 grid grid-cols-2 gap-6">
+            <!-- Colonne 1: Optimisation et bonnes pratiques -->
+            <div class="space-y-4">
+                <!-- Optimisation des performances -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-blue-600 mb-2">⚡ Optimisation performances</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Mesurer le temps</div>
+                        <div>time ./script.sh</div>
+                        <div>{ time ./script.sh; } 2>&1</div>
+                        <div class="mt-1"># Éviter les sous-shells</div>
+                        <div>var=$(cat file)  # Lent</div>
+                        <div>var=`cat file`   # Lent</div>
+                        <div>read var < file  # Rapide</div>
+                        <div class="mt-1"># Optimiser les boucles</div>
+                        <div>while IFS= read -r line; do</div>
+                        <div class="ml-2"># traitement</div>
+                        <div>done < file</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>time:</strong> Mesurer temps d'exécution</div>
+                        <div><strong>Éviter:</strong> `command` dans boucles</div>
+                        <div><strong>Préférer:</strong> built-ins vs externes</div>
+                    </div>
+                </div>
+
+                <!-- Bonnes pratiques -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-green-600 mb-2">✅ Bonnes pratiques</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>#!/bin/bash</div>
+                        <div>set -euo pipefail</div>
+                        <div class="mt-1"># Variables en MAJUSCULES</div>
+                        <div>readonly SCRIPT_DIR="$(dirname "$0")"</div>
+                        <div>readonly LOG_FILE="/var/log/script.log"</div>
+                        <div class="mt-1"># Fonctions avec documentation</div>
+                        <div># Description: Fait quelque chose</div>
+                        <div># Usage: ma_fonction param1 param2</div>
+                        <div>ma_fonction() {</div>
+                        <div class="ml-2">local param1="$1"</div>
+                        <div class="ml-2">local param2="$2"</div>
+                        <div>}</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>readonly:</strong> Variables constantes</div>
+                        <div><strong>local:</strong> Variables locales aux fonctions</div>
+                        <div><strong>Documentation:</strong> Usage et paramètres</div>
+                    </div>
+                </div>
+
+                <!-- Gestion des ressources -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-orange-600 mb-2">🎯 Gestion ressources</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Limites de ressources</div>
+                        <div>ulimit -t 300  # CPU max 5min</div>
+                        <div>ulimit -v 1048576  # Mémoire virtuelle</div>
+                        <div class="mt-1"># Gestion mémoire</div>
+                        <div>unset grosse_variable</div>
+                        <div>exec 3< fichier  # Descriptor</div>
+                        <div>read ligne <&3</div>
+                        <div>exec 3<&-  # Fermer</div>
+                        <div class="mt-1"># Nettoyage temporaire</div>
+                        <div>TMPDIR=$(mktemp -d)</div>
+                        <div>trap 'rm -rf "$TMPDIR"' EXIT</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>ulimit:</strong> Limiter ressources</div>
+                        <div><strong>unset:</strong> Libérer variables</div>
+                        <div><strong>mktemp:</strong> Fichiers temporaires sûrs</div>
+                    </div>
+                </div>
+
+                <!-- Standards de codage -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-purple-600 mb-2">📏 Standards de codage</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Indentation: 2 ou 4 espaces</div>
+                        <div>if condition; then</div>
+                        <div class="ml-2">commande</div>
+                        <div>fi</div>
+                        <div class="mt-1"># Noms explicites</div>
+                        <div>user_count=0</div>
+                        <div>process_logs() { ... }</div>
+                        <div class="mt-1"># Guillemets obligatoires</div>
+                        <div>echo "Valeur: $variable"</div>
+                        <div>[ -f "$file" ] && rm "$file"</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Lisibilité:</strong> Noms explicites</div>
+                        <div><strong>Sécurité:</strong> Toujours guillemeter</div>
+                        <div><strong>Cohérence:</strong> Style uniforme</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne 2: Sécurité et projet final -->
+            <div class="space-y-4">
+                <!-- Sécurité des scripts -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">🔒 Sécurité des scripts</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Validation des entrées</div>
+                        <div>if [[ ! "$input" =~ ^[a-zA-Z0-9]+$ ]]; then</div>
+                        <div class="ml-2">echo "Entrée invalide" >&2</div>
+                        <div class="ml-2">exit 1</div>
+                        <div>fi</div>
+                        <div class="mt-1"># Éviter l'injection</div>
+                        <div>safe_cmd="ls -la"</div>
+                        <div>$safe_cmd "$user_input"  # Dangereux</div>
+                        <div>command ls -la "$user_input"  # Sûr</div>
+                        <div class="mt-1"># Principe du moindre privilège</div>
+                        <div>if [ "$EUID" -eq 0 ]; then</div>
+                        <div class="ml-2">echo "Ne pas run en root!"</div>
+                        <div>fi</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Validation:</strong> Regex pour entrées</div>
+                        <div><strong>command:</strong> Évite injection</div>
+                        <div><strong>EUID:</strong> Vérifier privilèges</div>
+                    </div>
+                </div>
+
+                <!-- Logging sécurisé -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-teal-600 mb-2">📝 Logging sécurisé</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Logger function</div>
+                        <div>log() {</div>
+                        <div class="ml-2">local level="$1"</div>
+                        <div class="ml-2">shift</div>
+                        <div class="ml-2">echo "$(date '+%Y-%m-%d %H:%M:%S') [$level] $*" >&2</div>
+                        <div>}</div>
+                        <div class="mt-1"># Usage</div>
+                        <div>log "INFO" "Script démarré"</div>
+                        <div>log "ERROR" "Erreur de connexion"</div>
+                        <div class="mt-1"># Vers syslog</div>
+                        <div>logger -t "script" "Message important"</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Timestamp:</strong> date pour horodatage</div>
+                        <div><strong>Niveaux:</strong> INFO, WARN, ERROR</div>
+                        <div><strong>logger:</strong> Vers syslog système</div>
+                    </div>
+                </div>
+
+                <!-- Tests et validation -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-indigo-600 mb-2">🧪 Tests et validation</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Validation avec ShellCheck</div>
+                        <div>shellcheck script.sh</div>
+                        <div class="mt-1"># Tests unitaires basiques</div>
+                        <div>test_function() {</div>
+                        <div class="ml-2">local result</div>
+                        <div class="ml-2">result=$(ma_fonction "test")</div>
+                        <div class="ml-2">[ "$result" = "expected" ] || {</div>
+                        <div class="ml-4">echo "Test failed" >&2</div>
+                        <div class="ml-4">return 1</div>
+                        <div class="ml-2">}</div>
+                        <div>}</div>
+                        <div class="mt-1"># Mode dry-run</div>
+                        <div>[ "$DRY_RUN" = "true" ] && echo "Would run: $cmd" || $cmd</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>ShellCheck:</strong> Analyse statique</div>
+                        <div><strong>Tests:</strong> Vérifier comportement</div>
+                        <div><strong>Dry-run:</strong> Simulation sans action</div>
+                    </div>
+                </div>
+
+                <!-- Projet final -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-yellow-600 mb-2">🎯 Projet BackupMaster Pro</h3>
+                    <div class="space-y-2 text-xs">
+                        <div class="bg-yellow-50 p-2 rounded">
+                            <div class="font-bold">Fonctionnalités clés:</div>
+                            <ul class="list-disc list-inside mt-1">
+                                <li>Interface CLI avec options</li>
+                                <li>Configuration flexible (profiles)</li>
+                                <li>Types: complète, incrémentale, différentielle</li>
+                                <li>Compression et chiffrement</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-50 p-2 rounded">
+                            <div class="font-bold">Techniques avancées:</div>
+                            <ul class="list-disc list-inside mt-1">
+                                <li>Gestion d'erreurs robuste</li>
+                                <li>Rotation des sauvegardes</li>
+                                <li>Logging détaillé</li>
+                                <li>Notifications (email, webhook)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-2 rounded">
+                            <div class="font-bold">Évaluation (30%):</div>
+                            <ul class="list-disc list-inside mt-1">
+                                <li>Fonctionnalité: 40%</li>
+                                <li>Robustesse: 25%</li>
+                                <li>Code quality: 20%</li>
+                                <li>Sécurité: 10%, Innovation: 5%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section outils et ressources -->
+        <div class="bg-gray-50 p-4 rounded-b-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">🛠️ Outils et ressources</h3>
+            <div class="grid grid-cols-3 gap-4 text-xs">
+                <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                    <h4 class="font-bold text-blue-800">Validation</h4>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>ShellCheck (syntaxe)</li>
+                        <li>Bashdb (débogage)</li>
+                        <li>Bats (tests automatisés)</li>
+                        <li>explainshell.com</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                    <h4 class="font-bold text-green-800">Documentation</h4>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>man bash</li>
+                        <li>Advanced Bash Guide</li>
+                        <li>Google Shell Style Guide</li>
+                        <li>Linux Command Line Bible</li>
+                    </ul>
+                </div>
+                <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                    <h4 class="font-bold text-purple-800">Environnement</h4>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>VM Linux ou WSL2</li>
+                        <li>VS Code + Bash extension</li>
+                        <li>Git (versioning)</li>
+                        <li>Terminal avec couleurs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton d'impression -->
+        <button onclick="window.print()" class="no-print fixed bottom-4 right-4 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-red-700">
+            🖨️ Imprimer
+        </button>
+    </div>
+</body>
+</html>

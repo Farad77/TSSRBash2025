@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheet Bash - Séance 3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            body { font-size: 11px; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 text-sm">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
+        <!-- Header -->
+        <div class="bg-purple-600 text-white p-4 rounded-t-lg">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold">Bash Scripting - Séance 3</h1>
+                    <p class="text-purple-100">Manipulation de fichiers et texte</p>
+                </div>
+                <div class="text-right text-sm">
+                    <p>TSSR Formation</p>
+                    <p>7 heures</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 grid grid-cols-2 gap-6">
+            <!-- Colonne 1: Redirections et grep -->
+            <div class="space-y-4">
+                <!-- Redirections -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-blue-600 mb-2">📤 Redirections</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>commande > fichier     # Écraser</div>
+                        <div>commande >> fichier    # Ajouter</div>
+                        <div>commande < fichier     # Entrée</div>
+                        <div>commande 2> erreurs    # Erreurs</div>
+                        <div>commande &> tout       # Tout</div>
+                        <div>commande 2>&1          # Erreurs vers sortie</div>
+                        <div>commande > /dev/null   # Ignorer</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>></strong> Sortie standard (stdout)</div>
+                        <div><strong>2></strong> Erreurs standard (stderr)</div>
+                        <div><strong>&></strong> Les deux flux</div>
+                    </div>
+                </div>
+
+                <!-- Pipes -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-green-600 mb-2">🔗 Pipes et chaînage</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>cmd1 | cmd2 | cmd3</div>
+                        <div>ps aux | grep nginx</div>
+                        <div>cat file | sort | uniq -c</div>
+                        <div>ls -la | wc -l</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>|</strong> Pipe la sortie vers l'entrée suivante</div>
+                        <div><strong>Exemple:</strong> ps | grep | wc</div>
+                    </div>
+                </div>
+
+                <!-- Here documents -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-orange-600 mb-2">📝 Here documents</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>cat << EOF</div>
+                        <div>Texte multiligne</div>
+                        <div>avec $variables</div>
+                        <div>EOF</div>
+                        <div class="mt-1"># Sans expansion</div>
+                        <div>cat << 'EOF'</div>
+                        <div>Texte littéral $var</div>
+                        <div>EOF</div>
+                        <div class="mt-1"># Here string</div>
+                        <div>wc -w <<< "phrase test"</div>
+                    </div>
+                </div>
+
+                <!-- grep et expressions régulières -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">🔍 grep et regex</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>grep "pattern" fichier</div>
+                        <div>grep -i "pattern" fichier   # Ignorer casse</div>
+                        <div>grep -v "pattern" fichier   # Inverser</div>
+                        <div>grep -n "pattern" fichier   # Numéros lignes</div>
+                        <div>grep -r "pattern" dossier/  # Récursif</div>
+                        <div>grep -E "regex" fichier     # Regex étendues</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Regex de base:</strong> ^début $fin .any *répète</div>
+                        <div><strong>Classes:</strong> [a-z] [0-9] \d \w \s</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne 2: sed et awk -->
+            <div class="space-y-4">
+                <!-- sed - Éditeur de flux -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-purple-600 mb-2">✏️ sed - Éditeur de flux</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Substitution</div>
+                        <div>sed 's/ancien/nouveau/' fichier</div>
+                        <div>sed 's/ancien/nouveau/g' fichier</div>
+                        <div>sed -i 's/ancien/nouveau/g' fichier</div>
+                        <div># Suppression</div>
+                        <div>sed '/pattern/d' fichier</div>
+                        <div>sed '2,5d' fichier  # Lignes 2 à 5</div>
+                        <div># Insertion</div>
+                        <div>sed '3i\Nouvelle ligne' fichier</div>
+                        <div>sed '3a\Après ligne 3' fichier</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>s///:</strong> substitution</div>
+                        <div><strong>d:</strong> delete (supprimer)</div>
+                        <div><strong>i:</strong> insert, <strong>a:</strong> append</div>
+                        <div><strong>-i:</strong> modification en place</div>
+                    </div>
+                </div>
+
+                <!-- awk -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-teal-600 mb-2">🧮 awk - Traitement de données</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Variables prédéfinies</div>
+                        <div>awk '{print $1, $3}' fichier</div>
+                        <div>awk '{print NR, $0}' fichier</div>
+                        <div>awk '{print NF}' fichier</div>
+                        <div># Patterns et actions</div>
+                        <div>awk '/pattern/ {print $2}' fichier</div>
+                        <div>awk 'NR>1 {print $1}' fichier</div>
+                        <div># Calculs</div>
+                        <div>awk '{sum+=$1} END {print sum}' fichier</div>
+                        <div>awk -F: '{print $1}' /etc/passwd</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>$0:</strong> ligne entière, <strong>$1,$2...:</strong> colonnes</div>
+                        <div><strong>NR:</strong> numéro ligne, <strong>NF:</strong> nb colonnes</div>
+                        <div><strong>-F:</strong> séparateur de champs</div>
+                    </div>
+                </div>
+
+                <!-- Commandes de manipulation -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-indigo-600 mb-2">🔧 Commandes utiles</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>sort fichier            # Trier</div>
+                        <div>sort -n fichier        # Tri numérique</div>
+                        <div>uniq fichier           # Dédupliquer</div>
+                        <div>cut -d: -f1 fichier    # Découper</div>
+                        <div>tr 'a-z' 'A-Z'         # Translittérer</div>
+                        <div>wc -l fichier          # Compter lignes</div>
+                        <div>head -n 10 fichier     # 10 premières</div>
+                        <div>tail -n 10 fichier     # 10 dernières</div>
+                        <div>tail -f fichier        # Suivre</div>
+                    </div>
+                </div>
+
+                <!-- Exemples pratiques -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-yellow-600 mb-2">💡 Exemples pratiques</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Top 10 IPs dans access.log</div>
+                        <div>awk '{print $1}' access.log | sort | uniq -c | sort -nr | head -10</div>
+                        <div class="mt-1"># Lignes sans commentaires ni vides</div>
+                        <div>grep -v '^\s*#' config | grep -v '^\s*$'</div>
+                        <div class="mt-1"># Remplacer dans tous les .conf</div>
+                        <div>find . -name "*.conf" -exec sed -i 's/old/new/g' {} \;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Exercices -->
+        <div class="bg-gray-50 p-4 rounded-b-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">💡 Exercices de la séance</h3>
+            <div class="grid grid-cols-4 gap-3 text-xs">
+                <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                    <h4 class="font-bold text-blue-800">Ex 3.1</h4>
+                    <p>Analyse logs système</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Pipes et redirections</li>
+                        <li>Comptage erreurs</li>
+                    </ul>
+                </div>
+                <div class="bg-red-50 p-3 rounded border-l-4 border-red-400">
+                    <h4 class="font-bold text-red-800">Ex 3.3</h4>
+                    <p>Auditeur configs</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>grep avec regex</li>
+                        <li>IPs, ports, passwords</li>
+                    </ul>
+                </div>
+                <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                    <h4 class="font-bold text-purple-800">Ex 3.5</h4>
+                    <p>Config SSH avec sed</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Modification automatique</li>
+                        <li>Sauvegarde + validation</li>
+                    </ul>
+                </div>
+                <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
+                    <h4 class="font-bold text-teal-800">Ex 3.7</h4>
+                    <p>Stats Apache avec awk</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Analyse de logs</li>
+                        <li>IPs, bande passante</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton d'impression -->
+        <button onclick="window.print()" class="no-print fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-purple-700">
+            🖨️ Imprimer
+        </button>
+    </div>
+</body>
+</html>

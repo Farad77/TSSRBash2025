@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sélecteur aléatoire de lignes Bash</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #bashInput {
+            width: 100%;
+            height: 300px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            resize: vertical;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        #bashInput:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: #fff;
+        }
+
+        #bashInput::placeholder {
+            color: #888;
+            font-style: italic;
+        }
+
+        .result-container {
+            margin: 30px 0;
+            min-height: 80px;
+            padding: 20px;
+            background: #2d3748;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #selectedLine {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #e2e8f0;
+            text-align: center;
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+
+        .empty-state {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        #randomBtn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        #randomBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        #randomBtn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #resetBtn {
+            background: linear-gradient(45deg, #f44336, #da190b);
+            color: white;
+        }
+
+        #resetBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 67, 54, 0.3);
+        }
+
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            #bashInput {
+                height: 250px;
+                font-size: 12px;
+            }
+            
+            button {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔀 Sélecteur aléatoire de lignes Bash</h1>
+        
+        <textarea 
+            id="bashInput" 
+            placeholder="Collez votre code Bash ici...&#10;&#10;Exemple :&#10;#!/bin/bash&#10;# Ceci est un commentaire&#10;echo 'Hello World'&#10;ls -la&#10;# Autre commentaire&#10;cd /home/user"
+        ></textarea>
+        
+        <div class="result-container">
+            <div id="selectedLine" class="empty-state">
+                Collez du code Bash et cliquez sur "Ligne aléatoire" pour commencer
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button id="randomBtn" disabled>🎲 Ligne aléatoire</button>
+            <button id="resetBtn">🔄 Reset</button>
+        </div>
+        
+        <div class="info">
+            <strong>Instructions :</strong> Collez votre code Bash dans la zone de texte. L'outil sélectionnera automatiquement une ligne intéressante (minimum 20 caractères, non-vide et non-commentée) au hasard pour tester vos connaissances.
+        </div>
+    </div>
+
+    <script>
+        const bashInput = document.getElementById('bashInput');
+        const selectedLine = document.getElementById('selectedLine');
+        const randomBtn = document.getElementById('randomBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        let validLines = [];
+
+        // Fonction pour extraire les lignes valides (non-vides, non-commentées et intéressantes)
+        function extractValidLines(code) {
+            const lines = code.split('\n');
+            const valid = [];
+            
+            for (let line of lines) {
+                // Supprimer les espaces en début et fin
+                const trimmed = line.trim();
+                
+                // Ignorer les lignes vides
+                if (trimmed === '') continue;
+                
+                // Ignorer les lignes qui commencent par #
+                if (trimmed.startsWith('#')) continue;
+                
+                // Ignorer les lignes qui ne contiennent que des espaces et des tabs
+                if (trimmed.length === 0) continue;
+                
+                // Ignorer les lignes trop courtes (moins de 20 caractères)
+                if (trimmed.length < 20) continue;
+                
+                valid.push(trimmed);
+            }
+            
+            return valid;
+        }
+
+        // Fonction pour sélectionner une ligne aléatoire
+        function selectRandomLine() {
+            if (validLines.length === 0) {
+                selectedLine.textContent = 'Aucune ligne intéressante trouvée (minimum 20 caractères)';
+                selectedLine.className = 'empty-state';
+                return;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * validLines.length);
+            const randomLine = validLines[randomIndex];
+            
+            selectedLine.textContent = randomLine;
+            selectedLine.className = '';
+            
+            // Animation de clignotement
+            selectedLine.style.animation = 'none';
+            setTimeout(() => {
+                selectedLine.style.animation = 'fadeIn 0.5s ease-out';
+            }, 10);
+        }
+
+        // Fonction pour mettre à jour les lignes valides
+        function updateValidLines() {
+            const code = bashInput.value;
+            validLines = extractValidLines(code);
+            
+            // Activer/désactiver le bouton selon s'il y a des lignes valides
+            randomBtn.disabled = validLines.length === 0;
+            
+            if (validLines.length === 0) {
+                selectedLine.textContent = 'Collez du code Bash et cliquez sur "Ligne aléatoire" pour commencer';
+                selectedLine.className = 'empty-state';
+            }
+        }
+
+        // Fonction de reset
+        function resetAll() {
+            bashInput.value = '';
+            validLines = [];
+            selectedLine.textContent = 'Collez du code Bash et cliquez sur "Ligne aléatoire" pour commencer';
+            selectedLine.className = 'empty-state';
+            randomBtn.disabled = true;
+            bashInput.focus();
+        }
+
+        // Écouteurs d'événements
+        bashInput.addEventListener('input', updateValidLines);
+        randomBtn.addEventListener('click', selectRandomLine);
+        resetBtn.addEventListener('click', resetAll);
+
+        // Initialisation
+        updateValidLines();
+    </script>
+</body>
+</html>

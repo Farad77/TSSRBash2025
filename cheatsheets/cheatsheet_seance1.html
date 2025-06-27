@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheet Bash - Séance 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            body { font-size: 11px; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 text-sm">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
+        <!-- Header -->
+        <div class="bg-blue-600 text-white p-4 rounded-t-lg">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold">Bash Scripting - Séance 1</h1>
+                    <p class="text-blue-100">Fondamentaux et premiers pas</p>
+                </div>
+                <div class="text-right text-sm">
+                    <p>TSSR Formation</p>
+                    <p>7 heures</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 grid grid-cols-2 gap-6">
+            <!-- Colonne 1: Concepts fondamentaux -->
+            <div class="space-y-4">
+                <!-- Shell et Bash -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-blue-600 mb-2">🐚 Shell et Bash</h3>
+                    <div class="space-y-1 text-xs">
+                        <div><strong>Shell interactif:</strong> Interface utilisateur</div>
+                        <div><strong>Script:</strong> Fichier de commandes</div>
+                        <div><strong>Variables d'env:</strong> PATH, HOME, USER</div>
+                        <div class="bg-gray-100 p-2 rounded mt-2">
+                            <code>echo $HOME</code><br>
+                            <code>echo $PATH</code><br>
+                            <code>whoami</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Structure de script -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-green-600 mb-2">📄 Structure d'un script</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono">
+                        <div class="text-green-600">#!/bin/bash</div>
+                        <div class="text-gray-500"># Commentaire</div>
+                        <div>echo "Hello World"</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Shebang:</strong> #!/bin/bash</div>
+                        <div><strong>Permissions:</strong> chmod +x script.sh</div>
+                        <div><strong>Exécution:</strong> ./script.sh ou bash script.sh</div>
+                    </div>
+                </div>
+
+                <!-- Variables -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-purple-600 mb-2">🎯 Variables</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>nom="Jean"</div>
+                        <div>age=25</div>
+                        <div>echo "Je suis $nom, $age ans"</div>
+                        <div>echo "Je suis ${nom}, ${age} ans"</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Déclaration:</strong> variable=valeur (sans espaces!)</div>
+                        <div><strong>Utilisation:</strong> $variable ou ${variable}</div>
+                        <div><strong>Chaînes:</strong> "texte avec $variable"</div>
+                        <div><strong>Littéral:</strong> 'texte sans $variable'</div>
+                    </div>
+                </div>
+
+                <!-- Opérations arithmétiques -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">🧮 Arithmétique</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>a=5; b=3</div>
+                        <div>echo $((a + b))  # 8</div>
+                        <div>echo $((a - b))  # 2</div>
+                        <div>echo $((a * b))  # 15</div>
+                        <div>echo $((a / b))  # 1</div>
+                        <div>echo $((a % b))  # 2</div>
+                    </div>
+                    <div class="mt-2 text-xs">
+                        <strong>Syntaxe:</strong> $((expression))
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne 2: Interaction et manipulation -->
+            <div class="space-y-4">
+                <!-- Entrées utilisateur -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-yellow-600 mb-2">⌨️ Entrées utilisateur</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>read nom</div>
+                        <div>read -p "Votre âge: " age</div>
+                        <div>read -s -p "Mot de passe: " pwd</div>
+                        <div>read -t 10 -p "Réponse (10s): " rep</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>-p:</strong> Prompt (message)</div>
+                        <div><strong>-s:</strong> Silent (masqué)</div>
+                        <div><strong>-t:</strong> Timeout en secondes</div>
+                    </div>
+                </div>
+
+                <!-- Paramètres positionnels -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-indigo-600 mb-2">📊 Paramètres</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>echo "Script: $0"</div>
+                        <div>echo "Param 1: $1"</div>
+                        <div>echo "Param 2: $2"</div>
+                        <div>echo "Nb params: $#"</div>
+                        <div>echo "Tous: $@"</div>
+                        <div>echo "Tous: $*"</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>$0:</strong> Nom du script</div>
+                        <div><strong>$1, $2...:</strong> Paramètres 1, 2...</div>
+                        <div><strong>$#:</strong> Nombre de paramètres</div>
+                        <div><strong>$@ vs $*:</strong> Tous les paramètres</div>
+                    </div>
+                </div>
+
+                <!-- Manipulation de chaînes -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-teal-600 mb-2">🔤 Chaînes de caractères</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>prenom="Jean"; nom="Dupont"</div>
+                        <div>complet="$prenom $nom"</div>
+                        <div>echo ${#complet}  # Longueur</div>
+                        <div>echo ${complet^^}  # MAJUSCULES</div>
+                        <div>echo ${complet,,}  # minuscules</div>
+                        <div>echo ${prenom:0:3}  # 3 premiers</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Longueur:</strong> ${#variable}</div>
+                        <div><strong>Majuscules:</strong> ${variable^^}</div>
+                        <div><strong>Minuscules:</strong> ${variable,,}</div>
+                        <div><strong>Extraction:</strong> ${variable:debut:longueur}</div>
+                    </div>
+                </div>
+
+                <!-- Commandes de base -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-orange-600 mb-2">⚙️ Commandes utiles</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>date  # Date/heure actuelle</div>
+                        <div>hostname  # Nom de la machine</div>
+                        <div>pwd  # Répertoire actuel</div>
+                        <div>whoami  # Utilisateur connecté</div>
+                        <div>uptime  # Charge système</div>
+                        <div>df -h  # Espace disque</div>
+                        <div>last -5  # 5 dernières connexions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Exercices -->
+        <div class="bg-gray-50 p-4 rounded-b-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">💡 Exercices de la séance</h3>
+            <div class="grid grid-cols-3 gap-4 text-xs">
+                <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                    <h4 class="font-bold text-blue-800">Exercice 1.1</h4>
+                    <p>Script de présentation personnalisé</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Nom, date, hostname, pwd</li>
+                        <li>Commentaires explicatifs</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                    <h4 class="font-bold text-green-800">Exercice 1.3</h4>
+                    <p>Calculatrice simple</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Opérations +, -, *, /, %</li>
+                        <li>Format: "5 + 3 = 8"</li>
+                    </ul>
+                </div>
+                <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                    <h4 class="font-bold text-purple-800">Exercice 1.5</h4>
+                    <p>Script interactif avec read</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Nom, âge, ville (timeout)</li>
+                        <li>Message personnalisé</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton d'impression -->
+        <button onclick="window.print()" class="no-print fixed bottom-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700">
+            🖨️ Imprimer
+        </button>
+    </div>
+</body>
+</html>

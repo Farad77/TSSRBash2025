@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheet Bash - Séance 4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            body { font-size: 11px; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 text-sm">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
+        <!-- Header -->
+        <div class="bg-orange-600 text-white p-4 rounded-t-lg">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold">Bash Scripting - Séance 4</h1>
+                    <p class="text-orange-100">Techniques avancées</p>
+                </div>
+                <div class="text-right text-sm">
+                    <p>TSSR Formation</p>
+                    <p>7 heures</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 grid grid-cols-2 gap-6">
+            <!-- Colonne 1: Gestion des erreurs et tableaux -->
+            <div class="space-y-4">
+                <!-- Gestion des erreurs -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">🚨 Gestion des erreurs</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Code de retour</div>
+                        <div>commande</div>
+                        <div>if [ $? -eq 0 ]; then</div>
+                        <div class="ml-2">echo "Succès"</div>
+                        <div>else</div>
+                        <div class="ml-2">echo "Erreur: $?"</div>
+                        <div>fi</div>
+                        <div class="mt-1"># Raccourci</div>
+                        <div>commande && echo "OK" || echo "KO"</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>$?:</strong> Code de retour dernière commande</div>
+                        <div><strong>0:</strong> Succès, <strong>1-255:</strong> Erreur</div>
+                        <div><strong>exit N:</strong> Sortir avec code N</div>
+                    </div>
+                </div>
+
+                <!-- trap et signaux -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-pink-600 mb-2">🪤 trap et signaux</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Gérer interruption</div>
+                        <div>trap 'echo "Nettoyage..."; rm /tmp/lock; exit' INT TERM</div>
+                        <div class="mt-1"># À la sortie du script</div>
+                        <div>trap 'cleanup' EXIT</div>
+                        <div class="mt-1">cleanup() {</div>
+                        <div class="ml-2">rm -f /tmp/*$$*</div>
+                        <div class="ml-2">echo "Nettoyage terminé"</div>
+                        <div>}</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>INT:</strong> Ctrl+C, <strong>TERM:</strong> kill</div>
+                        <div><strong>EXIT:</strong> Sortie du script</div>
+                        <div><strong>$$:</strong> PID du script</div>
+                    </div>
+                </div>
+
+                <!-- Options de débogage -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-blue-600 mb-2">🐛 Débogage</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>#!/bin/bash -x  # Trace</div>
+                        <div>set -e  # Arrêter sur erreur</div>
+                        <div>set -u  # Erreur sur var non définie</div>
+                        <div>set -x  # Trace on</div>
+                        <div>set +x  # Trace off</div>
+                        <div class="mt-1"># Mode strict</div>
+                        <div>set -euo pipefail</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>-e:</strong> errexit, <strong>-u:</strong> nounset</div>
+                        <div><strong>-x:</strong> xtrace (débug)</div>
+                        <div><strong>pipefail:</strong> Erreur dans pipe</div>
+                    </div>
+                </div>
+
+                <!-- Tableaux -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-green-600 mb-2">📊 Tableaux</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Tableau indexé</div>
+                        <div>arr=(elem1 elem2 elem3)</div>
+                        <div>echo ${arr[0]}  # Premier élément</div>
+                        <div>echo ${arr[@]}  # Tous les éléments</div>
+                        <div>echo ${#arr[@]} # Nombre d'éléments</div>
+                        <div class="mt-1"># Tableau associatif</div>
+                        <div>declare -A assoc</div>
+                        <div>assoc[key]="valeur"</div>
+                        <div>echo ${assoc[key]}</div>
+                        <div>echo ${!assoc[@]}  # Toutes les clés</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne 2: Processus et IPC -->
+            <div class="space-y-4">
+                <!-- Processus et jobs -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-purple-600 mb-2">⚡ Processus et jobs</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Arrière-plan</div>
+                        <div>commande &</div>
+                        <div>nohup commande &</div>
+                        <div class="mt-1"># Gestion des jobs</div>
+                        <div>jobs  # Lister jobs</div>
+                        <div>fg %1  # Premier plan</div>
+                        <div>bg %1  # Arrière-plan</div>
+                        <div>kill %1  # Tuer job</div>
+                        <div class="mt-1"># PID et signaux</div>
+                        <div>echo $$  # PID du script</div>
+                        <div>kill -TERM $pid</div>
+                        <div>killall nom_processus</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>&:</strong> Arrière-plan</div>
+                        <div><strong>nohup:</strong> Survie à la déconnexion</div>
+                        <div><strong>jobs:</strong> Jobs actifs</div>
+                    </div>
+                </div>
+
+                <!-- Named pipes (FIFO) -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-teal-600 mb-2">🔗 Named pipes (FIFO)</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Créer un named pipe</div>
+                        <div>mkfifo /tmp/mypipe</div>
+                        <div class="mt-1"># Producteur</div>
+                        <div>echo "data" > /tmp/mypipe &</div>
+                        <div class="mt-1"># Consommateur</div>
+                        <div>while read line < /tmp/mypipe; do</div>
+                        <div class="ml-2">echo "Reçu: $line"</div>
+                        <div>done</div>
+                        <div class="mt-1"># Nettoyage</div>
+                        <div>rm /tmp/mypipe</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>mkfifo:</strong> Créer pipe nommé</div>
+                        <div><strong>Synchrone:</strong> Bloquant lecteur/écrivain</div>
+                    </div>
+                </div>
+
+                <!-- Fichiers de verrous -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-indigo-600 mb-2">🔒 Fichiers de verrous</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>LOCKFILE="/tmp/script.lock"</div>
+                        <div class="mt-1"># Acquisition verrou</div>
+                        <div>if [ -f "$LOCKFILE" ]; then</div>
+                        <div class="ml-2">echo "Déjà en cours"</div>
+                        <div class="ml-2">exit 1</div>
+                        <div>fi</div>
+                        <div>echo $$ > "$LOCKFILE"</div>
+                        <div class="mt-1"># Libération</div>
+                        <div>trap 'rm -f "$LOCKFILE"' EXIT</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Lockfile:</strong> Prévient exécutions multiples</div>
+                        <div><strong>$$:</strong> PID pour identifier propriétaire</div>
+                    </div>
+                </div>
+
+                <!-- Techniques avancées -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-yellow-600 mb-2">🎯 Techniques avancées</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Co-processus</div>
+                        <div>coproc CMD { cmd; }</div>
+                        <div>echo "data" >&${CMD[1]}</div>
+                        <div>read result <&${CMD[0]}</div>
+                        <div class="mt-1"># Substitution de processus</div>
+                        <div>diff <(cmd1) <(cmd2)</div>
+                        <div>cmd > >(process_output)</div>
+                        <div class="mt-1"># Timeouts</div>
+                        <div>timeout 10s commande</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>coproc:</strong> Processus bidirectionnel</div>
+                        <div><strong><():</strong> Substitution de processus</div>
+                        <div><strong>timeout:</strong> Limite de temps</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Exercices -->
+        <div class="bg-gray-50 p-4 rounded-b-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">💡 Exercices de la séance</h3>
+            <div class="grid grid-cols-4 gap-3 text-xs">
+                <div class="bg-red-50 p-3 rounded border-l-4 border-red-400">
+                    <h4 class="font-bold text-red-800">Ex 4.1</h4>
+                    <p>Sauvegarde sécurisée</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Gestion d'erreurs</li>
+                        <li>trap pour nettoyage</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                    <h4 class="font-bold text-green-800">Ex 4.3</h4>
+                    <p>Inventaire avec tableaux</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Tableaux associatifs</li>
+                        <li>CRUD opérations</li>
+                    </ul>
+                </div>
+                <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                    <h4 class="font-bold text-purple-800">Ex 4.5</h4>
+                    <p>Superviseur services</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Processus arrière-plan</li>
+                        <li>Signaux et heartbeat</li>
+                    </ul>
+                </div>
+                <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
+                    <h4 class="font-bold text-teal-800">Ex 4.7</h4>
+                    <p>Producteur-consommateur</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Named pipes</li>
+                        <li>Communication IPC</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton d'impression -->
+        <button onclick="window.print()" class="no-print fixed bottom-4 right-4 bg-orange-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-orange-700">
+            🖨️ Imprimer
+        </button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheet Bash - Séance 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            body { font-size: 11px; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 text-sm">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
+        <!-- Header -->
+        <div class="bg-green-600 text-white p-4 rounded-t-lg">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold">Bash Scripting - Séance 2</h1>
+                    <p class="text-green-100">Structures de contrôle</p>
+                </div>
+                <div class="text-right text-sm">
+                    <p>TSSR Formation</p>
+                    <p>7 heures</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 grid grid-cols-2 gap-6">
+            <!-- Colonne 1: Conditions et tests -->
+            <div class="space-y-4">
+                <!-- Conditions if/then/else -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-blue-600 mb-2">🔀 Conditions if/then/else</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div class="text-blue-600">if [ condition ]; then</div>
+                        <div class="ml-2">commandes</div>
+                        <div class="text-blue-600">elif [ autre_condition ]; then</div>
+                        <div class="ml-2">autres_commandes</div>
+                        <div class="text-blue-600">else</div>
+                        <div class="ml-2">commandes_par_defaut</div>
+                        <div class="text-blue-600">fi</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Syntaxe:</strong> [ ] ou [[ ]] (recommandé)</div>
+                        <div><strong>Espaces:</strong> Obligatoires autour des crochets</div>
+                    </div>
+                </div>
+
+                <!-- Opérateurs de comparaison -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-purple-600 mb-2">⚖️ Opérateurs de comparaison</h3>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div>
+                            <div class="font-bold text-purple-700">Numériques:</div>
+                            <div class="bg-gray-100 p-1 rounded font-mono">
+                                -eq  # égal<br>
+                                -ne  # différent<br>
+                                -lt  # inférieur<br>
+                                -le  # inférieur/égal<br>
+                                -gt  # supérieur<br>
+                                -ge  # supérieur/égal
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-bold text-purple-700">Chaînes:</div>
+                            <div class="bg-gray-100 p-1 rounded font-mono">
+                                =    # égal<br>
+                                !=   # différent<br>
+                                &lt;    # inférieur<br>
+                                &gt;    # supérieur<br>
+                                -z   # vide<br>
+                                -n   # non vide
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tests sur fichiers -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-orange-600 mb-2">📁 Tests sur fichiers</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>-f fichier  # fichier régulier</div>
+                        <div>-d repertoire  # répertoire</div>
+                        <div>-e chemin  # existe</div>
+                        <div>-r fichier  # lisible</div>
+                        <div>-w fichier  # écriture</div>
+                        <div>-x fichier  # exécutable</div>
+                        <div>-s fichier  # non vide</div>
+                    </div>
+                </div>
+
+                <!-- Opérateurs logiques -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-pink-600 mb-2">🔗 Opérateurs logiques</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div>[[ cond1 && cond2 ]]  # ET</div>
+                        <div>[[ cond1 || cond2 ]]  # OU</div>
+                        <div>[[ ! condition ]]     # NON</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>&&:</strong> Vrai si les deux conditions sont vraies</div>
+                        <div><strong>||:</strong> Vrai si au moins une condition est vraie</div>
+                        <div><strong>!:</strong> Inverse la condition</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne 2: Boucles et structures avancées -->
+            <div class="space-y-4">
+                <!-- Structure case -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-indigo-600 mb-2">🎛️ Structure case/esac</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div class="text-indigo-600">case $variable in</div>
+                        <div class="ml-2">pattern1)</div>
+                        <div class="ml-4">commandes;;</div>
+                        <div class="ml-2">pattern2|pattern3)</div>
+                        <div class="ml-4">autres_commandes;;</div>
+                        <div class="ml-2">*)</div>
+                        <div class="ml-4">defaut;;</div>
+                        <div class="text-indigo-600">esac</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>Patterns:</strong> *, ?, [a-z], a|b</div>
+                        <div><strong>;;:</strong> Termine chaque cas</div>
+                    </div>
+                </div>
+
+                <!-- Boucle for -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-teal-600 mb-2">🔄 Boucle for</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div># Liste</div>
+                        <div class="text-teal-600">for item in liste; do</div>
+                        <div class="ml-2">echo $item</div>
+                        <div class="text-teal-600">done</div>
+                        <div class="mt-1"># Plage</div>
+                        <div class="text-teal-600">for i in {1..10}; do</div>
+                        <div class="ml-2">echo $i</div>
+                        <div class="text-teal-600">done</div>
+                        <div class="mt-1"># Style C</div>
+                        <div class="text-teal-600">for ((i=1; i<=10; i++)); do</div>
+                        <div class="ml-2">echo $i</div>
+                        <div class="text-teal-600">done</div>
+                    </div>
+                </div>
+
+                <!-- Boucles while/until -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">⏳ Boucles while/until</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div class="text-red-600">while [ condition ]; do</div>
+                        <div class="ml-2">commandes</div>
+                        <div class="text-red-600">done</div>
+                        <div class="mt-2 text-red-600">until [ condition ]; do</div>
+                        <div class="ml-2">commandes</div>
+                        <div class="text-red-600">done</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>while:</strong> Tant que condition vraie</div>
+                        <div><strong>until:</strong> Jusqu'à ce que condition vraie</div>
+                        <div><strong>break:</strong> Sortir de la boucle</div>
+                        <div><strong>continue:</strong> Passer à l'itération suivante</div>
+                    </div>
+                </div>
+
+                <!-- Fonctions -->
+                <div class="border border-gray-200 rounded-lg p-3">
+                    <h3 class="text-lg font-bold text-yellow-700 mb-2">⚙️ Fonctions</h3>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono space-y-1">
+                        <div class="text-yellow-700">function ma_fonction() {</div>
+                        <div class="ml-2">local var_locale="valeur"</div>
+                        <div class="ml-2">echo "Param 1: $1"</div>
+                        <div class="ml-2">return 0</div>
+                        <div class="text-yellow-700">}</div>
+                        <div class="mt-1"># Appel</div>
+                        <div>ma_fonction "parametre"</div>
+                        <div>echo $?  # Code de retour</div>
+                    </div>
+                    <div class="mt-2 space-y-1 text-xs">
+                        <div><strong>local:</strong> Variable locale à la fonction</div>
+                        <div><strong>return:</strong> Code de retour (0-255)</div>
+                        <div><strong>$?:</strong> Dernier code de retour</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Exercices -->
+        <div class="bg-gray-50 p-4 rounded-b-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">💡 Exercices de la séance</h3>
+            <div class="grid grid-cols-4 gap-3 text-xs">
+                <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                    <h4 class="font-bold text-blue-800">Ex 2.1</h4>
+                    <p>Vérificateur d'âge</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Mineur/Majeur/Senior</li>
+                        <li>Tests sur fichiers</li>
+                    </ul>
+                </div>
+                <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                    <h4 class="font-bold text-purple-800">Ex 2.3</h4>
+                    <p>Menu système</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>case/esac</li>
+                        <li>Boucle menu</li>
+                    </ul>
+                </div>
+                <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
+                    <h4 class="font-bold text-teal-800">Ex 2.5</h4>
+                    <p>Générateur fichiers</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Boucles for</li>
+                        <li>Création en lot</li>
+                    </ul>
+                </div>
+                <div class="bg-yellow-50 p-3 rounded border-l-4 border-yellow-500">
+                    <h4 class="font-bold text-yellow-800">Ex 2.7</h4>
+                    <p>Fonctions math</p>
+                    <ul class="list-disc list-inside mt-1 text-gray-600">
+                        <li>Bibliothèque</li>
+                        <li>Paramètres/retour</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton d'impression -->
+        <button onclick="window.print()" class="no-print fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-green-700">
+            🖨️ Imprimer
+        </button>
+    </div>
+</body>
+</html>
