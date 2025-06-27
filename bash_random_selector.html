@@ -216,7 +216,8 @@
         </div>
         
         <div class="info">
-            <strong>Instructions :</strong> Collez votre code Bash dans la zone de texte. L'outil sélectionnera automatiquement une ligne intéressante (minimum 20 caractères, non-vide et non-commentée) au hasard pour tester vos connaissances.
+            <strong>Instructions :</strong> Collez votre code Bash dans la zone de texte. L'outil sélectionnera automatiquement une ligne intéressante au hasard pour tester vos connaissances.<br>
+            <small>Sont ignorés : les commentaires, les lignes courtes (&lt;20 caractères), et les echo basiques/décoratifs.</small>
         </div>
     </div>
 
@@ -227,6 +228,46 @@
         const resetBtn = document.getElementById('resetBtn');
 
         let validLines = [];
+
+        // Fonction pour vérifier si un echo est basique/peu intéressant
+        function isBasicEcho(line) {
+            // Vérifier si c'est une commande echo
+            if (!line.toLowerCase().startsWith('echo ')) return false;
+            
+            // Extraire le contenu après "echo "
+            const content = line.substring(5).trim();
+            
+            // Echo sans contenu
+            if (content === '') return true;
+            
+            // Echo avec seulement des guillemets vides
+            if (content === '""' || content === "''") return true;
+            
+            // Enlever les guillemets pour analyser le contenu
+            let innerContent = content;
+            if ((content.startsWith('"') && content.endsWith('"')) || 
+                (content.startsWith("'") && content.endsWith("'"))) {
+                innerContent = content.slice(1, -1);
+            }
+            
+            // Echo avec seulement des caractères répétitifs (=, -, *, #, etc.)
+            const repetitivePattern = /^(.)\1{4,}$/; // Au moins 5 caractères identiques
+            if (repetitivePattern.test(innerContent)) return true;
+            
+            // Echo avec seulement des espaces et caractères de décoration
+            const decorativePattern = /^[\s=\-_*#+=~]{3,}$/;
+            if (decorativePattern.test(innerContent)) return true;
+            
+            // Echo avec des messages très basiques
+            const basicMessages = [
+                'hello', 'hi', 'test', 'ok', 'done', 'start', 'end', 'begin',
+                'loading', 'wait', 'please wait', 'finished', 'complete'
+            ];
+            const lowerContent = innerContent.toLowerCase().trim();
+            if (basicMessages.includes(lowerContent)) return true;
+            
+            return false;
+        }
 
         // Fonction pour extraire les lignes valides (non-vides, non-commentées et intéressantes)
         function extractValidLines(code) {
@@ -248,6 +289,9 @@
                 
                 // Ignorer les lignes trop courtes (moins de 20 caractères)
                 if (trimmed.length < 20) continue;
+                
+                // Ignorer les echo basiques/peu intéressants
+                if (isBasicEcho(trimmed)) continue;
                 
                 valid.push(trimmed);
             }
